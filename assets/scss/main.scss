@@ -19,6 +19,22 @@ Version: 2.0.2
     font-display: swap;
 }
 
+:root {
+    --dark-background: #1c1f2b;
+    --dark-color: #bdcadb;
+    --light-background-color: #f6f7f8;
+    --light-background: #f6f7f8;
+    --article-dark-color: #61b3ff;
+    --article-light-color: #0084ff;
+    --content-dark-color: #fff;
+    --content-light-color: #212529;
+    --header-dark-color: #fff;
+    --header-light-color: #333;
+    --img-dark-color: #dae3f6;
+    --img-light-color: #8590a6;
+    color-scheme: light dark no-preference;
+}
+
 .gray-mode {
     -webkit-filter: grayscale(1);
     filter: grayscale(1)
@@ -48,24 +64,25 @@ html {
     transition: all .2s
 }
 
+
 @media (prefers-color-scheme:dark) {
     html {
-        background: #1c1f2b !important;
-        color: #bdcadb !important
+        background: var(--dark-background) !important;
+        color: var(--dark-color) !important
     }
 }
 
 @media (prefers-color-scheme:light) {
     html {
-        background-color: #f6f7f8 !important;
-        background: #f6f7f8 !important
+        background-color: var(--light-background-color) !important;
+        background: var(--light-background) !important
     }
 }
 
 @media (prefers-color-scheme:no-preference) {
     html {
-        background-color: #f6f7f8 !important;
-        background: #f6f7f8 !important
+        background-color: var(--light-background-color) !important;
+        background: var(--light-background) !important
     }
 }
 
@@ -95,21 +112,21 @@ body {
 
 @media (prefers-color-scheme:dark) {
     body {
-        background: #1c1f2b !important;
-        background-color: #1c1f2b !important;
-        color: #bdcadb !important
+        background: var(--dark-background) !important;
+        background-color: var(--dark-background) !important;
+        color: var(--dark-color) !important
     }
 }
 
 @media (prefers-color-scheme:light) {
     body {
-        background-color: #f6f7f8 !important
+        background-color: var(--light-background-color) !important
     }
 }
 
 @media (prefers-color-scheme:no-preference) {
     body {
-        background-color: #f6f7f8 !important
+        background-color: var(--light-background-color) !important
     }
 }
 
@@ -998,19 +1015,19 @@ img {
 
 @media (prefers-color-scheme:dark) {
     .article-list-type1 {
-        color: #61b3ff !important
+        color: var(--article-dark-color) !important
     }
 }
 
 @media (prefers-color-scheme:light) {
     .article-list-type1 {
-        color: #0084ff !important
+        color: var(--article-light-color) !important
     }
 }
 
 @media (prefers-color-scheme:no-preference) {
     .article-list-type1 {
-        color: #0084ff !important
+        color: var(--article-light-color) !important
     }
 }
 
@@ -1238,19 +1255,19 @@ img {
 
 @media (prefers-color-scheme:dark) {
     .article-content p {
-        color: #fff !important
+        color: var(--content-dark-color) !important
     }
 }
 
 @media (prefers-color-scheme:light) {
     .article-content p {
-        color: #212529
+        color: var(--content-light-color) !important
     }
 }
 
 @media (prefers-color-scheme:no-preference) {
     .article-content p {
-        color: #212529
+        color: var(--content-light-color) !important
     }
 }
 
@@ -2777,19 +2794,19 @@ pre {
 
 @media (prefers-color-scheme:dark) {
     .mob-header-text {
-        color: #fff !important
+        color: var(--header-dark-color) !important
     }
 }
 
 @media (prefers-color-scheme:light) {
     .mob-header-text {
-        color: #333 !important
+        color: var(--header-light-color) !important
     }
 }
 
 @media (prefers-color-scheme:no-preference) {
     .mob-header-text {
-        color: #333 !important
+        color: var(--header-light-color) !important
     }
 }
 
@@ -3017,19 +3034,19 @@ pre {
 
 @media (prefers-color-scheme:dark) {
     .img-cate {
-        color: #dae3f6 !important
+        color: var(--img-dark-color) !important
     }
 }
 
 @media (prefers-color-scheme:light) {
     .img-cate {
-        color: #8590a6 !important
+        color: var(--img-light-color) !important
     }
 }
 
 @media (prefers-color-scheme:no-preference) {
     .img-cate {
-        color: #8590a6 !important
+        color: var(--img-light-color) !important
     }
 }
 
@@ -3090,6 +3107,18 @@ input:focus {
 }
 
 .footer-github-icon {
+    font-size: 20px;
+    color: #848fa6
+}
+
+.footer-switch {
+    left: 90px;
+    text-align: center;
+    padding-top: 5.5px !important;
+    padding-left: 0 !important
+}
+
+.footer-switch-icon {
     font-size: 20px;
     color: #848fa6
 }

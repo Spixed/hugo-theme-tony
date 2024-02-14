@@ -9,7 +9,6 @@
             {{ end }}
             
             {{ if .Site.Params.enableWaline }}
-                <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
                 <div id="waline"></div>
                 {{ partial "third-party/waline.html" . }}
             {{ end }}

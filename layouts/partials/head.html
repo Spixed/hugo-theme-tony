@@ -34,6 +34,10 @@
         {{ partial "third-party/google-analytics.html" . }}
     {{- end }}
 
+    {{- if .Site.Params.enableWaline }}
+        <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+    {{- end }}
+
     <!-- SEO -->
     <link rel="canonical" href="{{ .Permalink }}" />
     {{- $Deliver := . -}}

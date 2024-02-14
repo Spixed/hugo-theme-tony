@@ -1,0 +1,23 @@
+<script lang="javascript" src="https://cdn.jsdelivr.net/npm/darkreader@latest/darkreader.min.js"></script>
+<script lang="javascript">
+    const switcher = document.getElementById("ld-switch");
+    const config = {
+        brightness: 100,
+        contrast: 100, 
+        sepia: 0,
+        grayscale: 0
+    };
+    DarkReader.setFetchMethod(window.fetch);
+
+    DarkReader.auto(config);
+
+    switcher.onclick = function (params) {
+        if (DarkReader.isEnabled()) {
+            DarkReader.disable();
+            switcher.setAttribute("class", "ri-moon-fill footer-switch-icon");
+        } else {
+            DarkReader.enable(config);
+            switcher.setAttribute("class", "ri-sun-fill footer-switch-icon");
+        }
+    }
+</script>
