@@ -85,15 +85,16 @@ paginate = 10
             autoHeadingID = true
             autoHeadingIDType = "github"
         [markup.goldmark.renderer]
-            hardWraps = false
+            hardWraps = true
             unsafe = true
             xHTML = false
     [markup.highlight]
         codeFences = true
-        guessSyntax = false
-        lineNos = false
+        guessSyntax = true
+        lineNos = true
         lineNumbersInTable = false
-        noClasses = false
+        noClasses = true
+        style = "onedark"
     [markup.tableOfContents]
         startLevel = 2
         endLevel = 6
@@ -105,10 +106,7 @@ paginate = 10
     home = ["HTML", "SectionsRSS", "SectionsAtom"]
     section = ["HTML"]
     # 类别
-    taxonomyTerm = ["HTML"]
-    # 类别项
     taxonomy = ["HTML"]
-    # 说明：https://github.com/gohugoio/hugo/issues/4528#issuecomment-508488859
 
 # Atom 文件格式的媒体类型
 [mediaTypes."application/atom+xml"]
@@ -216,6 +214,10 @@ paginate = 10
     valineEnableQQ = false
     valineRequiredFields = []
     # 说明：https://valine.js.org/
+
+    ## Waline
+    enableWaline = false
+    walineServerURL = ""
 
     ######################################
     # Google Analytics

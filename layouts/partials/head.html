@@ -25,17 +25,25 @@
     <meta name="description" content="{{ $description }}" />
 
     {{- with .Site.Params.googleSiteVerification }}
-        <meta name="google-site-verification" content="{{ . }}" />
+    <meta name="google-site-verification" content="{{ . }}" />
     {{- end }}
-    
-    {{- if .Site.Params.enableGoogleAnalytics }}
-        <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
 
-        {{ partial "third-party/google-analytics.html" . }}
+    {{- if .Site.Params.enableGoogleAnalytics }}
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+
+    {{ partial "third-party/google-analytics.html" . }}
     {{- end }}
 
     {{- if .Site.Params.enableWaline }}
-        <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client@3.0.1/dist/waline.min.css" />
+    <style>
+        .wl-emoji {
+            height: 20px !important;
+            width: fit-content;
+            position: relative;
+            top: 4px;
+        }
+    </style>
     {{- end }}
 
     <!-- SEO -->
