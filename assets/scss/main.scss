@@ -20,7 +20,34 @@ Version: 2.0.2
 }
 
 :root {
-    color-scheme: light dark no-preference;
+    color-scheme: light;
+}
+
+@media (prefers-color-scheme:light) {
+    html {
+        background-color: #f6f7f8 !important;
+        background: #f6f7f8 !important
+    }
+
+    body {
+        background-color: #f6f7f8 !important;
+    }
+
+    .article-list-type1 {
+        color: #0084ff !important;
+    }
+
+    .article-content p {
+        color: #212529 !important;
+    }
+
+    .mob-header-text {
+        color: #333 !important;
+    }
+
+    .img-cate {
+        color: #8590a6 !important;
+    }
 }
 
 .gray-mode {
