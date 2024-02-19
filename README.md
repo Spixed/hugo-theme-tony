@@ -1,3 +1,5 @@
+> The author(Spixed) don't want to rewrite or complete this passage...
+
 <div align="center">
   <h1>hugo-theme-tony</h1>
   <p>An Elegant Hugo Theme Based on WordPress Theme Tony </p>

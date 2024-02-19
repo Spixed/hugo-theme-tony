@@ -1,3 +1,5 @@
+> 本作者不想重写或完善这个文档……
+
 <div align="center">
   <h1>hugo-theme-tony</h1>
   <p>一个使用Hugo静态网站生成器的简洁强大的博客主题</p>
