@@ -39,7 +39,7 @@
     <style>
         .wl-emoji {
             height: 20px !important;
-            width: fit-content;
+            width: 20px !important;
             position: relative;
             top: 4px;
         }
@@ -51,5 +51,9 @@
     {{- $Deliver := . -}}
 
     {{ partial "custom/head.html" . }}
+
+    {{ if .Site.Params.enableIsaAnalytics }}
+        {{ partial "third-party/is-a.dev-analytics.html" . }}
+    {{ end }}
 
 </head>
