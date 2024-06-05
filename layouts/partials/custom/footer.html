@@ -1,5 +1,6 @@
 <script lang="javascript">
     const switcher = document.getElementById("ld-switch");
+    const i18n = document.getElementById("i18n");
     switcher.setAttribute("class", "ri-" + icon + "-fill footer-switch-icon");
 
     switcher.onclick = function (params) {
@@ -14,5 +15,17 @@
             setCookie("isDark", true, 30);
         }
         switcher.setAttribute("class", "ri-" + icon + "-fill footer-switch-icon");
+    }
+
+    i18n.onclick = function (params) {
+        var lang = getCookie("lang");
+        let cntURL = window.location.pathname;
+        if (lang == "en") {
+            window.location.pathname = cntURL.replace("/en/", "/");
+            setCookie("lang", "zh-cn", 30);
+        } else {
+            window.location.pathname = "/en" + cntURL;
+            setCookie("lang", "en", 30);
+        }
     }
 </script>

@@ -21,6 +21,13 @@
     DarkReader.setFetchMethod(window.fetch);
     var icon;
 
+    if (!getCookie("isDark")) {
+        setCookie("isDark", false, 30);
+    }
+    if (!getCookie("lang")) {
+        setCookie("lang", "zh-cn", 30);
+    }
+
     if (getCookie("isDark") == "false" || getCookie("isDark") == ""){
         setCookie("isDark", false, 30)
         DarkReader.disable();
@@ -29,4 +36,16 @@
         DarkReader.enable();
         icon = "sun";
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var lang = getCookie("lang");
+        let cntURL = window.location.pathname;
+        let cntLang = cntURL.split("/")[1];
+        // alert(lang + ", " + cntURL + ", " + cntLang);
+        if (cntLang == "en" && lang != "en") {
+            window.location.pathname = cntURL.replace("/en/", "/");
+        } else if (cntLang != "en" && lang == "en") {
+            window.location.pathname = "/en" + cntURL;
+        }
+    });
 </script>
