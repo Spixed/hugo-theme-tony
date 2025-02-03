@@ -19,11 +19,11 @@
         {{ with .Site.LanguageCode }}
             <language>{{ . }}</language>
         {{ end }}
-        {{ with .Site.Params.Author.email }}
-            <managingEditor>{{ . }}{{ with $.Site.Params.Author.name }} ({{ . }}){{ end }}</managingEditor>
+        {{ with .Site.Params.email }}
+            <managingEditor>{{ . }}{{ with $.Site.Params.author }} ({{ . }}){{ end }}</managingEditor>
         {{ end }}
-        {{ with .Site.Params.Author.email }}
-            <webMaster>{{ . }}{{ with $.Site.Params.Author.name }} ({{ . }}){{ end }}</webMaster>
+        {{ with .Site.Params.email }}
+            <webMaster>{{ . }}{{ with $.Site.Params.author }} ({{ . }}){{ end }}</webMaster>
         {{ end }}
         {{ with .Site.Copyright }}
             <copyright>{{ . | plainify }}</copyright>
