@@ -16,11 +16,11 @@
     {{ with .OutputFormats.Get "SectionsAtom" -}}
         {{ printf `<link rel="self" type="%s" href="%s" />` .MediaType .Permalink | safeHTML }}
     {{ end -}}
-    {{ with .Site.Author.name -}}
+    {{ with .Site.Params.Author.name -}}
         <author>
             <name>{{ . }}</name>
             <uri>{{ print `/` | absLangURL }}</uri>
-            {{ with $.Site.Author.email }}
+            {{ with $.Site.Params.Author.email }}
                 <email>{{ . }}</email>
             {{ end -}}
         </author>

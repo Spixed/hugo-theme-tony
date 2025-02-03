@@ -1,5 +1,5 @@
-{{ .Scratch.Set "prev" .PrevPage }}
-{{ .Scratch.Set "next" .NextPage }}
+{{ .Scratch.Set "prev" .Prev }}
+{{ .Scratch.Set "next" .Next }}
 {{ $prev := .Scratch.Get "prev" }}
 {{ $next := .Scratch.Get "next" }}
 {{ if or $prev $next }}

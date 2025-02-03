@@ -20,7 +20,7 @@
     <link rel="shortcut icon" href="{{ $.Site.Params.siteLogo | relURL }}" type="image/x-icon" />
     <title>{{ .Title }}</title>
 
-    <meta name="author" content="{{ .Params.author | default .Site.Author.name }}" />
+    <meta name="author" content="{{ .Params.author | default .Site.Params.Author.name }}" />
     {{- $description := .Description | default .Site.Params.siteDescription | plainify -}}
     <meta name="description" content="{{ $description }}" />
 
