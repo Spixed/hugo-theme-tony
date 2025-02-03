@@ -1,13 +1,20 @@
 <script type="module">
-  import { init } from 'https://cdn.jsdelivr.net/npm/@waline/client@3.0.1/dist/waline.min.js';
+  import { init } from "https://unpkg.com/@waline/client@latest/dist/waline.js";
+  import katex from "https://unpkg.com/katex@0.16/dist/katex.mjs";
 
   init({
-    el: '#waline',
-    serverURL: '{{ .Site.Params.walineServerURL }}',
+    el: "#waline",
+    serverURL: "{{ .Site.Params.walineServerURL }}",
     emoji: [
-      "//cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/qq",
-      '//cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/weibo',
+      "https://unpkg.com/@waline/emojis@latest/qq",
+      "https://unpkg.com/@waline/emojis@latest/weibo",
+      "https://unpkg.com/@waline/emojis@latest/soul-emoji",
     ],
-    dark: 'html.data-darkreader-scheme',
+    dark: "html.data-darkreader-scheme",
+    texRenderer: (blockMode, tex) =>
+      katex.renderToString(tex, {
+        displayMode: blockMode,
+        throwOnError: false,
+      }),
   });
 </script>
