@@ -1,11 +1,12 @@
 {{ if .Params.toc | default .Site.Params.enableToc }}
         <!-- ignore empty links with + -->
-        {{ $headers := findRE "<h[1-4].*?>(.|\n])+?</h[1-4]>" .Content }}
+        {{ $headers := findRE "<h[1-6].*?>(.|\n])+?</h[1-6]>" .Content }}
         <!-- at least one header to link to -->
         {{ if ge (len $headers) 1 }}
-            {{ $h1_n := len (findRE "(.|\n])+?" .Content) }}
-            {{ $re := (cond (eq $h1_n 0) "<h[2-4]" "<h[1-4]") }}
-            {{ $renum := (cond (eq $h1_n 0) "[2-4]" "[1-4]") }}
+            {{ $firstHeadingLevel := findRE "<h[1-6]" (index $headers 0) 1 }}
+            {{ $firstHeadingLevelNum := 0 }}
+            {{ if $firstHeadingLevel }}{{ $firstHeadingLevelNum = (replaceRE "[^1-6]" "" (index $firstHeadingLevel 0)) | int }}{{ end }}
+
             <div class="index-div">
                 <div class="single-index">
                     <h4>
@@ -14,19 +15,24 @@
                     </h4>
                 </div>  
                 <ul id="article-index" class="index-ul">
-                    {{ range $headers }}
-                        {{ $header := . }}
-                        {{ range first 1 (findRE $re $header 1) }}
-                            {{ range findRE $renum . 1 }}
-                                {{ $next_heading := (cond (eq $h1_n 0) (sub (int .) 1 ) (int . ) ) }}
-                                {{ $anchorId :=  (replaceRE ".* id=\"(.*?)\".*" "$1" $header ) }}
+                    {{ range $i, $header := $headers }}
+                        {{ $currentHeadingLevel := findRE "<h[1-6]" $header 1 }}
+                        {{ $currentHeadingLevelNum := 0 }}
+                        {{ if $currentHeadingLevel }}{{ $currentHeadingLevelNum = (replaceRE "[^1-6]" "" (index $currentHeadingLevel 0)) | int }}{{ end }}
+
+                        {{/* Calculate the adjusted heading level relative to the first heading in the document */}}
+                        {{ $adjustedLevel := sub $currentHeadingLevelNum (sub $firstHeadingLevelNum 1) }}
+
+                        {{/* Only display headings that are at or deeper than the first heading level */}}
+                        {{ if ge $adjustedLevel 1 }}
+                            {{ $indent := mul (sub $adjustedLevel 1) 20 }} {{/* Indent 20px per level */}}
+                            {{ $anchorId := (replaceRE ".* id=\"(.*?)\".*" "$1" $header ) }}
+                            <li style="{{ printf "padding-left:%dpx;" $indent }}" class="{{ printf "toc-level-%d" $adjustedLevel }}">
                                 <a href="#{{ $anchorId }}">
-                                    <li style="padding-left:23px" class="">
-                                        <i class="ri-checkbox-blank-circle-line"></i>
-                                        &nbsp;&nbsp;{{ $header | plainify | htmlUnescape }}
-                                    </li>
+                                    <i class="ri-record-circle-fill"></i>
+                                    &nbsp;{{ $header | plainify | htmlUnescape }}
                                 </a>
-                            {{ end }}
+                            </li>
                         {{ end }}
                     {{ end }}
                 </ul>

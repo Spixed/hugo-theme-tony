@@ -58,4 +58,12 @@
 
     {{ partial "custom/head.html" . }}
 
+    {{ $cdnURL := "/" }}
+    {{ $description := "" }}
+    {{ $keywords := "" }}
+
+    <link rel="stylesheet" href="{{ $cdnURL }}css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ $cdnURL }}css/remixicon/remixicon.css" />
+    <link rel="stylesheet" href="{{ $cdnURL }}css/toc.css" />
+
 </head>

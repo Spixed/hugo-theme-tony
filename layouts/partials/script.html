@@ -16,4 +16,9 @@
     {{ partial "third-party/baidu-push.html" . }}
 {{ end }}
 
+{{ partial "third-party/instant-page.html" . }}
+{{ partial "third-party/qrcode-generator.html" . }}
+
+<script src="{{ "/js/toc-highlight.js" | relURL }}"></script>
+
 {{ partial "custom/script.html" . }}

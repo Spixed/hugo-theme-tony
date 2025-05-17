@@ -1,0 +1,50 @@
+/* 目录样式 */
+.index-ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.index-ul li {
+  margin: 8px 0;
+  transition: all 0.3s ease;
+  line-height: 1.5;
+}
+
+.index-ul li a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #666;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* 不同层级的缩进和样式 */
+.toc-level-1 { padding-left: 0 !important; }
+.toc-level-2 { padding-left: 20px !important; }
+.toc-level-3 { padding-left: 40px !important; }
+.toc-level-4 { padding-left: 60px !important; }
+.toc-level-5 { padding-left: 80px !important; }
+.toc-level-6 { padding-left: 100px !important; }
+
+/* 圆点样式 */
+.index-ul li i {
+  font-size: 12px;
+  margin-right: 5px;
+  color: #ccc;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+/* 当前项高亮样式 */
+.index-ul li.active i {
+  color: #007bff; /* 蓝色高亮 */
+}
+
+.index-ul li.active a {
+  color: #007bff; /* 文字也变成蓝色 */
+  font-weight: 500;
+} 

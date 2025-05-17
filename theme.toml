@@ -4,8 +4,8 @@ licenselink = "https://github.com/Spixed/hugo-theme-tony/blob/master/LICENSE"
 description = "An Elegant Hugo Theme Based on WordPress Theme Tony"
 homepage = "https://htony.js.org"
 tags = ["simple", "Elegant", "transportation", "porting"]
-features = ["medium-zoom", "social icon", "thumbnail", "Valine","highlight.js","Google Analytics","Archives Page"]
-min_version = "0.59.1"
+features = ["medium-zoom", "social icon", "thumbnail", "Valine", "Waline", "highlight.js", "Google Analytics", "Archives Page", "multi-language", "dark mode"]
+min_version = "0.60.0"
 
 # If the theme has a single author
 [author]
