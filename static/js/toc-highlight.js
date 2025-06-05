@@ -72,6 +72,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     debug('目录项数据', tocData);
     
+    // 获取TOC容器
+    const $tocContainer = $('#article-index');
+    
     // 4. 建立标题与目录项的关联
     function findMatchingTocItem(heading) {
       // 首先通过ID精确匹配
@@ -141,6 +144,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (matchingTocItem) {
           debug('匹配的目录项', matchingTocItem);
           matchingTocItem.el.addClass('active');
+          // 滚动TOC以使活动项可见
+          scrollTocToActiveItem(matchingTocItem.el, $tocContainer);
         } else {
           debug('未找到匹配的目录项');
           // 尝试找到最接近的上级标题
@@ -148,13 +153,48 @@ document.addEventListener('DOMContentLoaded', function() {
             const parentMatch = findMatchingTocItem(headingsData[i]);
             if (parentMatch) {
               parentMatch.el.addClass('active');
+              // 滚动TOC以使活动项可见
+              scrollTocToActiveItem(parentMatch.el, $tocContainer);
               break;
             }
           }
         }
       } else if (headingsData.length > 0 && scrollTop < headingsData[0].top) {
         // 在第一个标题之前
-        $tocItems.first().addClass('active');
+        const $firstTocItem = $tocItems.first();
+        if ($firstTocItem.length) {
+          $firstTocItem.addClass('active');
+          // 滚动TOC以使活动项可见
+          scrollTocToActiveItem($firstTocItem, $tocContainer);
+        }
+      }
+    }
+    
+    // 6. 滚动TOC容器以使活动项可见
+    function scrollTocToActiveItem($activeItem, $container) {
+      if (!$activeItem || $activeItem.length === 0 || !$container || $container.length === 0) {
+        return;
+      }
+
+      // const containerScrollTop = $container.scrollTop(); // 不再直接使用当前的scrollTop进行比较
+      const containerHeight = $container.height();
+      const activeItemOffsetTop = $activeItem.get(0).offsetTop; // 元素相对于offsetParent的顶部距离
+      // const activeItemHeight = $activeItem.outerHeight(); // 暂时不需要activeItemHeight来定位顶部
+
+      // 目标：将activeItem的顶部滚动到容器可见区域的1/3处
+      // 如果tocContainer本身不是offsetParent, activeItemOffsetTop可能需要调整
+      // 假设 #article-index 是直接的滚动容器并且是li的offsetParent或其滚动上下文正确
+      let targetScrollTop = activeItemOffsetTop - (containerHeight / 3);
+
+      // 确保滚动位置不超出边界
+      targetScrollTop = Math.max(0, targetScrollTop);
+      // $container[0].scrollHeight 是容器内部内容的总高度
+      const maxScrollTop = $container[0].scrollHeight - containerHeight;
+      targetScrollTop = Math.min(targetScrollTop, maxScrollTop);
+
+      // 只有在计算出的目标位置与当前滚动位置有显著差异时才执行动画，避免不必要的抖动
+      if (Math.abs($container.scrollTop() - targetScrollTop) > 5) { // 增加一个小的阈值
+        $container.stop().animate({ scrollTop: targetScrollTop }, 150); // 使用stop()来防止动画队列堆积
       }
     }
     
@@ -193,6 +233,8 @@ document.addEventListener('DOMContentLoaded', function() {
           // 立即更新高亮
           $tocItems.removeClass('active');
           $(this).closest('li').addClass('active');
+          // 点击时也滚动TOC
+          scrollTocToActiveItem($(this).closest('li'), $tocContainer);
         }
       }
     });
