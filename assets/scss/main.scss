@@ -3123,13 +3123,8 @@ input:focus {
 
 .footer-switch-icon {
     font-size: 20px;
-    color: var(--text-secondary);
+    color: #848fa6;
     transition: color 0.2s ease;
-}
-
-/* 深色模式下的footer-switch-icon */
-[data-theme="dark"] .footer-switch-icon {
-    color: var(--text-secondary) !important;
 }
 
 /* 强制覆盖Bootstrap的body背景色 */
