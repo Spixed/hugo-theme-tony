@@ -1,0 +1,510 @@
+{{/* QQ表情单个表情shortcode */}}
+{{/* 用法: {{< qq-emoji "微笑" >}} */}}
+
+{{- $emojiName := .Get 0 -}}
+{{- if not $emojiName -}}
+    <span class="qq-emoji-error">❌ 请提供表情名称</span>
+{{- else -}}
+    {{/* 内嵌表情数据映射 */}}
+    {{- if false -}}
+        {{/* 这个条件永远不会执行，只是为了语法结构 */}}
+        {{- else if eq $emojiName "惊讶" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/0/apng/0.png" class="qmoji" alt="/惊讶" title="/惊讶" />
+        {{- else if eq $emojiName "撇嘴" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/1/apng/1.png" class="qmoji" alt="/撇嘴" title="/撇嘴" />
+        {{- else if eq $emojiName "色" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/2/apng/2.png" class="qmoji" alt="/色" title="/色" />
+        {{- else if eq $emojiName "发呆" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/3/apng/3.png" class="qmoji" alt="/发呆" title="/发呆" />
+        {{- else if eq $emojiName "得意" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/4/apng/4.png" class="qmoji" alt="/得意" title="/得意" />
+        {{- else if eq $emojiName "流泪" -}}
+            {{- $uniqueId := "lottie-emoji-5-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/5/lottie/5.json" title="/流泪"></div>
+        {{- else if eq $emojiName "害羞" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/6/apng/6.png" class="qmoji" alt="/害羞" title="/害羞" />
+        {{- else if eq $emojiName "闭嘴" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/7/apng/7.png" class="qmoji" alt="/闭嘴" title="/闭嘴" />
+        {{- else if eq $emojiName "睡" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/8/apng/8.png" class="qmoji" alt="/睡" title="/睡" />
+        {{- else if eq $emojiName "大哭" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/9/apng/9.png" class="qmoji" alt="/大哭" title="/大哭" />
+        {{- else if eq $emojiName "尴尬" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/10/apng/10.png" class="qmoji" alt="/尴尬" title="/尴尬" />
+        {{- else if eq $emojiName "发怒" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/11/apng/11.png" class="qmoji" alt="/发怒" title="/发怒" />
+        {{- else if eq $emojiName "调皮" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/12/apng/12.png" class="qmoji" alt="/调皮" title="/调皮" />
+        {{- else if eq $emojiName "呲牙" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/13/apng/13.png" class="qmoji" alt="/呲牙" title="/呲牙" />
+        {{- else if eq $emojiName "微笑" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/14/apng/14.png" class="qmoji" alt="/微笑" title="/微笑" />
+        {{- else if eq $emojiName "难过" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/15/apng/15.png" class="qmoji" alt="/难过" title="/难过" />
+        {{- else if eq $emojiName "酷" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/16/apng/16.png" class="qmoji" alt="/酷" title="/酷" />
+        {{- else if eq $emojiName "抓狂" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/18/apng/18.png" class="qmoji" alt="/抓狂" title="/抓狂" />
+        {{- else if eq $emojiName "吐" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/19/apng/19.png" class="qmoji" alt="/吐" title="/吐" />
+        {{- else if eq $emojiName "偷笑" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/20/apng/20.png" class="qmoji" alt="/偷笑" title="/偷笑" />
+        {{- else if eq $emojiName "可爱" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/21/apng/21.png" class="qmoji" alt="/可爱" title="/可爱" />
+        {{- else if eq $emojiName "白眼" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/22/apng/22.png" class="qmoji" alt="/白眼" title="/白眼" />
+        {{- else if eq $emojiName "傲慢" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/23/apng/23.png" class="qmoji" alt="/傲慢" title="/傲慢" />
+        {{- else if eq $emojiName "饥饿" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/24/apng/24.png" class="qmoji" alt="/饥饿" title="/饥饿" />
+        {{- else if eq $emojiName "困" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/25/apng/25.png" class="qmoji" alt="/困" title="/困" />
+        {{- else if eq $emojiName "惊恐" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/26/apng/26.png" class="qmoji" alt="/惊恐" title="/惊恐" />
+        {{- else if eq $emojiName "流汗" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/27/apng/27.png" class="qmoji" alt="/流汗" title="/流汗" />
+        {{- else if eq $emojiName "憨笑" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/28/apng/28.png" class="qmoji" alt="/憨笑" title="/憨笑" />
+        {{- else if eq $emojiName "悠闲" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/29/apng/29.png" class="qmoji" alt="/悠闲" title="/悠闲" />
+        {{- else if eq $emojiName "奋斗" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/30/apng/30.png" class="qmoji" alt="/奋斗" title="/奋斗" />
+        {{- else if eq $emojiName "咒骂" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/31/apng/31.png" class="qmoji" alt="/咒骂" title="/咒骂" />
+        {{- else if eq $emojiName "疑问" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/32/apng/32.png" class="qmoji" alt="/疑问" title="/疑问" />
+        {{- else if eq $emojiName "嘘" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/33/apng/33.png" class="qmoji" alt="/嘘" title="/嘘" />
+        {{- else if eq $emojiName "晕" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/34/apng/34.png" class="qmoji" alt="/晕" title="/晕" />
+        {{- else if eq $emojiName "折磨" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/35/apng/35.png" class="qmoji" alt="/折磨" title="/折磨" />
+        {{- else if eq $emojiName "衰" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/36/apng/36.png" class="qmoji" alt="/衰" title="/衰" />
+        {{- else if eq $emojiName "骷髅" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/37/apng/37.png" class="qmoji" alt="/骷髅" title="/骷髅" />
+        {{- else if eq $emojiName "敲打" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/38/apng/38.png" class="qmoji" alt="/敲打" title="/敲打" />
+        {{- else if eq $emojiName "再见" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/39/apng/39.png" class="qmoji" alt="/再见" title="/再见" />
+        {{- else if eq $emojiName "发抖" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/41/apng/41.png" class="qmoji" alt="/发抖" title="/发抖" />
+        {{- else if eq $emojiName "爱情" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/42/apng/42.png" class="qmoji" alt="/爱情" title="/爱情" />
+        {{- else if eq $emojiName "跳跳" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/43/apng/43.png" class="qmoji" alt="/跳跳" title="/跳跳" />
+        {{- else if eq $emojiName "猪头" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/46/apng/46.png" class="qmoji" alt="/猪头" title="/猪头" />
+        {{- else if eq $emojiName "拥抱" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/49/apng/49.png" class="qmoji" alt="/拥抱" title="/拥抱" />
+        {{- else if eq $emojiName "蛋糕" -}}
+            {{- $uniqueId := "lottie-emoji-53-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/53/lottie/53.json" title="/蛋糕"></div>
+        {{- else if eq $emojiName "刀" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/56/apng/56.png" class="qmoji" alt="/刀" title="/刀" />
+        {{- else if eq $emojiName "便便" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/59/apng/59.png" class="qmoji" alt="/便便" title="/便便" />
+        {{- else if eq $emojiName "咖啡" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/60/apng/60.png" class="qmoji" alt="/咖啡" title="/咖啡" />
+        {{- else if eq $emojiName "玫瑰" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/63/apng/63.png" class="qmoji" alt="/玫瑰" title="/玫瑰" />
+        {{- else if eq $emojiName "凋谢" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/64/apng/64.png" class="qmoji" alt="/凋谢" title="/凋谢" />
+        {{- else if eq $emojiName "爱心" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/66/apng/66.png" class="qmoji" alt="/爱心" title="/爱心" />
+        {{- else if eq $emojiName "心碎" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/67/apng/67.png" class="qmoji" alt="/心碎" title="/心碎" />
+        {{- else if eq $emojiName "太阳" -}}
+            {{- $uniqueId := "lottie-emoji-74-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/74/lottie/74.json" title="/太阳"></div>
+        {{- else if eq $emojiName "月亮" -}}
+            {{- $uniqueId := "lottie-emoji-75-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/75/lottie/75.json" title="/月亮"></div>
+        {{- else if eq $emojiName "赞" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/76/apng/76.png" class="qmoji" alt="/赞" title="/赞" />
+        {{- else if eq $emojiName "踩" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/77/apng/77.png" class="qmoji" alt="/踩" title="/踩" />
+        {{- else if eq $emojiName "握手" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/78/apng/78.png" class="qmoji" alt="/握手" title="/握手" />
+        {{- else if eq $emojiName "胜利" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/79/apng/79.png" class="qmoji" alt="/胜利" title="/胜利" />
+        {{- else if eq $emojiName "飞吻" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/85/apng/85.png" class="qmoji" alt="/飞吻" title="/飞吻" />
+        {{- else if eq $emojiName "怄火" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/86/apng/86.png" class="qmoji" alt="/怄火" title="/怄火" />
+        {{- else if eq $emojiName "西瓜" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/89/apng/89.png" class="qmoji" alt="/西瓜" title="/西瓜" />
+        {{- else if eq $emojiName "冷汗" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/96/apng/96.png" class="qmoji" alt="/冷汗" title="/冷汗" />
+        {{- else if eq $emojiName "擦汗" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/97/apng/97.png" class="qmoji" alt="/擦汗" title="/擦汗" />
+        {{- else if eq $emojiName "抠鼻" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/98/apng/98.png" class="qmoji" alt="/抠鼻" title="/抠鼻" />
+        {{- else if eq $emojiName "鼓掌" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/99/apng/99.png" class="qmoji" alt="/鼓掌" title="/鼓掌" />
+        {{- else if eq $emojiName "糗大了" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/100/apng/100.png" class="qmoji" alt="/糗大了" title="/糗大了" />
+        {{- else if eq $emojiName "坏笑" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/101/apng/101.png" class="qmoji" alt="/坏笑" title="/坏笑" />
+        {{- else if eq $emojiName "左哼哼" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/102/apng/102.png" class="qmoji" alt="/左哼哼" title="/左哼哼" />
+        {{- else if eq $emojiName "右哼哼" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/103/apng/103.png" class="qmoji" alt="/右哼哼" title="/右哼哼" />
+        {{- else if eq $emojiName "哈欠" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/104/apng/104.png" class="qmoji" alt="/哈欠" title="/哈欠" />
+        {{- else if eq $emojiName "鄙视" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/105/apng/105.png" class="qmoji" alt="/鄙视" title="/鄙视" />
+        {{- else if eq $emojiName "委屈" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/106/apng/106.png" class="qmoji" alt="/委屈" title="/委屈" />
+        {{- else if eq $emojiName "快哭了" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/107/apng/107.png" class="qmoji" alt="/快哭了" title="/快哭了" />
+        {{- else if eq $emojiName "阴险" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/108/apng/108.png" class="qmoji" alt="/阴险" title="/阴险" />
+        {{- else if eq $emojiName "左亲亲" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/109/apng/109.png" class="qmoji" alt="/左亲亲" title="/左亲亲" />
+        {{- else if eq $emojiName "吓" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/110/apng/110.png" class="qmoji" alt="/吓" title="/吓" />
+        {{- else if eq $emojiName "可怜" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/111/apng/111.png" class="qmoji" alt="/可怜" title="/可怜" />
+        {{- else if eq $emojiName "菜刀" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/112/apng/112.png" class="qmoji" alt="/菜刀" title="/菜刀" />
+        {{- else if eq $emojiName "篮球" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/114/apng/114.png" class="qmoji" alt="/篮球" title="/篮球" />
+        {{- else if eq $emojiName "示爱" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/116/apng/116.png" class="qmoji" alt="/示爱" title="/示爱" />
+        {{- else if eq $emojiName "抱拳" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/118/apng/118.png" class="qmoji" alt="/抱拳" title="/抱拳" />
+        {{- else if eq $emojiName "勾引" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/119/apng/119.png" class="qmoji" alt="/勾引" title="/勾引" />
+        {{- else if eq $emojiName "拳头" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/120/apng/120.png" class="qmoji" alt="/拳头" title="/拳头" />
+        {{- else if eq $emojiName "差劲" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/121/apng/121.png" class="qmoji" alt="/差劲" title="/差劲" />
+        {{- else if eq $emojiName "NO" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/123/apng/123.png" class="qmoji" alt="/NO" title="/NO" />
+        {{- else if eq $emojiName "OK" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/124/apng/124.png" class="qmoji" alt="/OK" title="/OK" />
+        {{- else if eq $emojiName "转圈" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/125/apng/125.png" class="qmoji" alt="/转圈" title="/转圈" />
+        {{- else if eq $emojiName "挥手" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/129/apng/129.png" class="qmoji" alt="/挥手" title="/挥手" />
+        {{- else if eq $emojiName "鞭炮" -}}
+            {{- $uniqueId := "lottie-emoji-137-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/137/lottie/137.json" title="/鞭炮"></div>
+        {{- else if eq $emojiName "喝彩" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/144/apng/144.png" class="qmoji" alt="/喝彩" title="/喝彩" />
+        {{- else if eq $emojiName "爆筋" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/146/apng/146.png" class="qmoji" alt="/爆筋" title="/爆筋" />
+        {{- else if eq $emojiName "棒棒糖" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/147/apng/147.png" class="qmoji" alt="/棒棒糖" title="/棒棒糖" />
+        {{- else if eq $emojiName "手枪" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/169/apng/169.png" class="qmoji" alt="/手枪" title="/手枪" />
+        {{- else if eq $emojiName "茶" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/171/apng/171.png" class="qmoji" alt="/茶" title="/茶" />
+        {{- else if eq $emojiName "眨眼睛" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/172/apng/172.png" class="qmoji" alt="/眨眼睛" title="/眨眼睛" />
+        {{- else if eq $emojiName "泪奔" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/173/apng/173.png" class="qmoji" alt="/泪奔" title="/泪奔" />
+        {{- else if eq $emojiName "无奈" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/174/apng/174.png" class="qmoji" alt="/无奈" title="/无奈" />
+        {{- else if eq $emojiName "卖萌" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/175/apng/175.png" class="qmoji" alt="/卖萌" title="/卖萌" />
+        {{- else if eq $emojiName "小纠结" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/176/apng/176.png" class="qmoji" alt="/小纠结" title="/小纠结" />
+        {{- else if eq $emojiName "喷血" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/177/apng/177.png" class="qmoji" alt="/喷血" title="/喷血" />
+        {{- else if eq $emojiName "斜眼笑" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/178/apng/178.png" class="qmoji" alt="/斜眼笑" title="/斜眼笑" />
+        {{- else if eq $emojiName "doge" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/179/apng/179.png" class="qmoji" alt="/doge" title="/doge" />
+        {{- else if eq $emojiName "戳一戳" -}}
+            {{- $uniqueId := "lottie-emoji-181-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/181/lottie/181.json" title="/戳一戳"></div>
+        {{- else if eq $emojiName "笑哭" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/182/apng/182.png" class="qmoji" alt="/笑哭" title="/笑哭" />
+        {{- else if eq $emojiName "我最美" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/183/apng/183.png" class="qmoji" alt="/我最美" title="/我最美" />
+        {{- else if eq $emojiName "羊驼" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/185/apng/185.png" class="qmoji" alt="/羊驼" title="/羊驼" />
+        {{- else if eq $emojiName "幽灵" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/187/apng/187.png" class="qmoji" alt="/幽灵" title="/幽灵" />
+        {{- else if eq $emojiName "点赞" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/201/apng/201.png" class="qmoji" alt="/点赞" title="/点赞" />
+        {{- else if eq $emojiName "托腮" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/212/apng/212.png" class="qmoji" alt="/托腮" title="/托腮" />
+        {{- else if eq $emojiName "脑阔疼" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/262/apng/262.png" class="qmoji" alt="/脑阔疼" title="/脑阔疼" />
+        {{- else if eq $emojiName "沧桑" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/263/apng/263.png" class="qmoji" alt="/沧桑" title="/沧桑" />
+        {{- else if eq $emojiName "捂脸" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/264/apng/264.png" class="qmoji" alt="/捂脸" title="/捂脸" />
+        {{- else if eq $emojiName "辣眼睛" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/265/apng/265.png" class="qmoji" alt="/辣眼睛" title="/辣眼睛" />
+        {{- else if eq $emojiName "哦哟" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/266/apng/266.png" class="qmoji" alt="/哦哟" title="/哦哟" />
+        {{- else if eq $emojiName "头秃" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/267/apng/267.png" class="qmoji" alt="/头秃" title="/头秃" />
+        {{- else if eq $emojiName "问号脸" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/268/apng/268.png" class="qmoji" alt="/问号脸" title="/问号脸" />
+        {{- else if eq $emojiName "暗中观察" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/269/apng/269.png" class="qmoji" alt="/暗中观察" title="/暗中观察" />
+        {{- else if eq $emojiName "emm" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/270/apng/270.png" class="qmoji" alt="/emm" title="/emm" />
+        {{- else if eq $emojiName "吃瓜" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/271/apng/270.png" class="qmoji" alt="/吃瓜" title="/吃瓜" />
+        {{- else if eq $emojiName "呵呵哒" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/272/apng/272.png" class="qmoji" alt="/呵呵哒" title="/呵呵哒" />
+        {{- else if eq $emojiName "我酸了" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/273/apng/273.png" class="qmoji" alt="/我酸了" title="/我酸了" />
+        {{- else if eq $emojiName "汪汪" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/277/apng/277.png" class="qmoji" alt="/汪汪" title="/汪汪" />
+        {{- else if eq $emojiName "无眼笑" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/281/apng/281.png" class="qmoji" alt="/无眼笑" title="/无眼笑" />
+        {{- else if eq $emojiName "敬礼" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/282/apng/282.png" class="qmoji" alt="/敬礼" title="/敬礼" />
+        {{- else if eq $emojiName "狂笑" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/283/apng/283.png" class="qmoji" alt="/狂笑" title="/狂笑" />
+        {{- else if eq $emojiName "面无表情" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/284/apng/284.png" class="qmoji" alt="/面无表情" title="/面无表情" />
+        {{- else if eq $emojiName "摸鱼" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/285/apng/285.png" class="qmoji" alt="/摸鱼" title="/摸鱼" />
+        {{- else if eq $emojiName "魔鬼笑" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/286/apng/286.png" class="qmoji" alt="/魔鬼笑" title="/魔鬼笑" />
+        {{- else if eq $emojiName "哦" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/287/apng/287.png" class="qmoji" alt="/哦" title="/哦" />
+        {{- else if eq $emojiName "睁眼" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/289/apng/289.png" class="qmoji" alt="/睁眼" title="/睁眼" />
+        {{- else if eq $emojiName "摸锦鲤" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/293/apng/293.png" class="qmoji" alt="/摸锦鲤" title="/摸锦鲤" />
+        {{- else if eq $emojiName "期待" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/294/apng/294.png" class="qmoji" alt="/期待" title="/期待" />
+        {{- else if eq $emojiName "拿到红包" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/295/apng/295.png" class="qmoji" alt="/拿到红包" title="/拿到红包" />
+        {{- else if eq $emojiName "拜谢" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/297/apng/297.png" class="qmoji" alt="/拜谢" title="/拜谢" />
+        {{- else if eq $emojiName "元宝" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/298/apng/298.png" class="qmoji" alt="/元宝" title="/元宝" />
+        {{- else if eq $emojiName "牛啊" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/299/apng/299.png" class="qmoji" alt="/牛啊" title="/牛啊" />
+        {{- else if eq $emojiName "胖三斤" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/300/apng/300.png" class="qmoji" alt="/胖三斤" title="/胖三斤" />
+        {{- else if eq $emojiName "左拜年" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/302/apng/302.png" class="qmoji" alt="/左拜年" title="/左拜年" />
+        {{- else if eq $emojiName "右拜年" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/303/apng/303.png" class="qmoji" alt="/右拜年" title="/右拜年" />
+        {{- else if eq $emojiName "右亲亲" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/305/apng/305.png" class="qmoji" alt="/右亲亲" title="/右亲亲" />
+        {{- else if eq $emojiName "牛气冲天" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/306/apng/306.png" class="qmoji" alt="/牛气冲天" title="/牛气冲天" />
+        {{- else if eq $emojiName "喵喵" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/307/apng/307.png" class="qmoji" alt="/喵喵" title="/喵喵" />
+        {{- else if eq $emojiName "打call" -}}
+            {{- $uniqueId := "lottie-emoji-311-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/311/lottie/311.json" title="/打call"></div>
+        {{- else if eq $emojiName "变形" -}}
+            {{- $uniqueId := "lottie-emoji-312-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/312/lottie/312.json" title="/变形"></div>
+        {{- else if eq $emojiName "仔细分析" -}}
+            {{- $uniqueId := "lottie-emoji-314-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/314/lottie/314.json" title="/仔细分析"></div>
+        {{- else if eq $emojiName "菜汪" -}}
+            {{- $uniqueId := "lottie-emoji-317-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/317/lottie/317.json" title="/菜汪"></div>
+        {{- else if eq $emojiName "崇拜" -}}
+            {{- $uniqueId := "lottie-emoji-318-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/318/lottie/318.json" title="/崇拜"></div>
+        {{- else if eq $emojiName "比心" -}}
+            {{- $uniqueId := "lottie-emoji-319-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/319/lottie/319.json" title="/比心"></div>
+        {{- else if eq $emojiName "庆祝" -}}
+            {{- $uniqueId := "lottie-emoji-320-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/320/lottie/320.json" title="/庆祝"></div>
+        {{- else if eq $emojiName "嫌弃" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/323/apng/323.png" class="qmoji" alt="/嫌弃" title="/嫌弃" />
+        {{- else if eq $emojiName "吃糖" -}}
+            {{- $uniqueId := "lottie-emoji-324-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/324/lottie/324.json" title="/吃糖"></div>
+        {{- else if eq $emojiName "惊吓" -}}
+            {{- $uniqueId := "lottie-emoji-325-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/325/lottie/325.json" title="/惊吓"></div>
+        {{- else if eq $emojiName "生气" -}}
+            {{- $uniqueId := "lottie-emoji-326-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/326/lottie/326.json" title="/生气"></div>
+        {{- else if eq $emojiName "举牌牌" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/332/apng/332.png" class="qmoji" alt="/举牌牌" title="/举牌牌" />
+        {{- else if eq $emojiName "烟花" -}}
+            {{- $uniqueId := "lottie-emoji-333-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/333/lottie/333.json" title="/烟花"></div>
+        {{- else if eq $emojiName "虎虎生威" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/334/apng/334.png" class="qmoji" alt="/虎虎生威" title="/虎虎生威" />
+        {{- else if eq $emojiName "豹富" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/336/apng/336.png" class="qmoji" alt="/豹富" title="/豹富" />
+        {{- else if eq $emojiName "花朵脸" -}}
+            {{- $uniqueId := "lottie-emoji-337-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/337/lottie/337.json" title="/花朵脸"></div>
+        {{- else if eq $emojiName "我想开了" -}}
+            {{- $uniqueId := "lottie-emoji-338-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/338/lottie/338.json" title="/我想开了"></div>
+        {{- else if eq $emojiName "舔屏" -}}
+            {{- $uniqueId := "lottie-emoji-339-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/339/lottie/339.json" title="/舔屏"></div>
+        {{- else if eq $emojiName "打招呼" -}}
+            {{- $uniqueId := "lottie-emoji-341-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/341/lottie/341.json" title="/打招呼"></div>
+        {{- else if eq $emojiName "酸Q" -}}
+            {{- $uniqueId := "lottie-emoji-342-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/342/lottie/342.json" title="/酸Q"></div>
+        {{- else if eq $emojiName "我方了" -}}
+            {{- $uniqueId := "lottie-emoji-343-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/343/lottie/343.json" title="/我方了"></div>
+        {{- else if eq $emojiName "大怨种" -}}
+            {{- $uniqueId := "lottie-emoji-344-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/344/lottie/344.json" title="/大怨种"></div>
+        {{- else if eq $emojiName "红包多多" -}}
+            {{- $uniqueId := "lottie-emoji-345-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/345/lottie/345.json" title="/红包多多"></div>
+        {{- else if eq $emojiName "你真棒棒" -}}
+            {{- $uniqueId := "lottie-emoji-346-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/346/lottie/346.json" title="/你真棒棒"></div>
+        {{- else if eq $emojiName "大展宏兔" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/347/apng/347.png" class="qmoji" alt="/大展宏兔" title="/大展宏兔" />
+        {{- else if eq $emojiName "坚强" -}}
+            {{- $uniqueId := "lottie-emoji-349-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/349/lottie/349.json" title="/坚强"></div>
+        {{- else if eq $emojiName "贴贴" -}}
+            {{- $uniqueId := "lottie-emoji-350-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/350/lottie/350.json" title="/贴贴"></div>
+        {{- else if eq $emojiName "敲敲" -}}
+            {{- $uniqueId := "lottie-emoji-351-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/351/lottie/351.json" title="/敲敲"></div>
+        {{- else if eq $emojiName "咦" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/352/apng/352.png" class="qmoji" alt="/咦" title="/咦" />
+        {{- else if eq $emojiName "拜托" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/353/apng/353.png" class="qmoji" alt="/拜托" title="/拜托" />
+        {{- else if eq $emojiName "尊嘟假嘟" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/354/apng/354.png" class="qmoji" alt="/尊嘟假嘟" title="/尊嘟假嘟" />
+        {{- else if eq $emojiName "耶" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/355/apng/355.png" class="qmoji" alt="/耶" title="/耶" />
+        {{- else if eq $emojiName "666" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/356/apng/356.png" class="qmoji" alt="/666" title="/666" />
+        {{- else if eq $emojiName "裂开" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/357/apng/357.png" class="qmoji" alt="/裂开" title="/裂开" />
+        {{- else if eq $emojiName "龙年快乐" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/392/apng/392.png" class="qmoji" alt="/龙年快乐" title="/龙年快乐" />
+        {{- else if eq $emojiName "新年中龙" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/393/apng/393.png" class="qmoji" alt="/新年中龙" title="/新年中龙" />
+        {{- else if eq $emojiName "新年大龙" -}}
+            <img src="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/394/apng/394.png" class="qmoji" alt="/新年大龙" title="/新年大龙" />
+        {{- else if eq $emojiName "略略略" -}}
+            {{- $uniqueId := "lottie-emoji-395-{{ now.UnixNano }}" -}}
+            <div id="{{ $uniqueId }}" class="super-qmoji" data-lottie-path="https://koishi.js.org/QFace/assets/qq_emoji/resfile/emoji/395/lottie/395.json" title="/略略略"></div>
+        {{- else if eq $emojiName "嘿嘿" -}}
+            <span class="qq-emoji-fallback">/嘿嘿</span>
+        {{- else if eq $emojiName "羞涩" -}}
+            <span class="qq-emoji-fallback">/羞涩</span>
+        {{- else if eq $emojiName "亲亲" -}}
+            <span class="qq-emoji-fallback">/亲亲</span>
+        {{- else if eq $emojiName "汗" -}}
+            <span class="qq-emoji-fallback">/汗</span>
+        {{- else if eq $emojiName "紧张" -}}
+            <span class="qq-emoji-fallback">/紧张</span>
+        {{- else if eq $emojiName "吐舌" -}}
+            <span class="qq-emoji-fallback">/吐舌</span>
+        {{- else if eq $emojiName "淘气" -}}
+            <span class="qq-emoji-fallback">/淘气</span>
+        {{- else if eq $emojiName "花痴" -}}
+            <span class="qq-emoji-fallback">/花痴</span>
+        {{- else if eq $emojiName "失落" -}}
+            <span class="qq-emoji-fallback">/失落</span>
+        {{- else if eq $emojiName "高兴" -}}
+            <span class="qq-emoji-fallback">/高兴</span>
+        {{- else if eq $emojiName "哼哼" -}}
+            <span class="qq-emoji-fallback">/哼哼</span>
+        {{- else if eq $emojiName "不屑" -}}
+            <span class="qq-emoji-fallback">/不屑</span>
+        {{- else if eq $emojiName "瞪眼" -}}
+            <span class="qq-emoji-fallback">/瞪眼</span>
+        {{- else if eq $emojiName "害怕" -}}
+            <span class="qq-emoji-fallback">/害怕</span>
+        {{- else if eq $emojiName "激动" -}}
+            <span class="qq-emoji-fallback">/激动</span>
+        {{- else if eq $emojiName "肌肉" -}}
+            <span class="qq-emoji-fallback">/肌肉</span>
+        {{- else if eq $emojiName "厉害" -}}
+            <span class="qq-emoji-fallback">/厉害</span>
+        {{- else if eq $emojiName "合十" -}}
+            <span class="qq-emoji-fallback">/合十</span>
+        {{- else if eq $emojiName "好的" -}}
+            <span class="qq-emoji-fallback">/好的</span>
+        {{- else if eq $emojiName "向上" -}}
+            <span class="qq-emoji-fallback">/向上</span>
+        {{- else if eq $emojiName "眼睛" -}}
+            <span class="qq-emoji-fallback">/眼睛</span>
+        {{- else if eq $emojiName "拉面" -}}
+            <span class="qq-emoji-fallback">/拉面</span>
+        {{- else if eq $emojiName "刨冰" -}}
+            <span class="qq-emoji-fallback">/刨冰</span>
+        {{- else if eq $emojiName "面包" -}}
+            <span class="qq-emoji-fallback">/面包</span>
+        {{- else if eq $emojiName "啤酒" -}}
+            <span class="qq-emoji-fallback">/啤酒</span>
+        {{- else if eq $emojiName "干杯" -}}
+            <span class="qq-emoji-fallback">/干杯</span>
+        {{- else if eq $emojiName "苹果" -}}
+            <span class="qq-emoji-fallback">/苹果</span>
+        {{- else if eq $emojiName "草莓" -}}
+            <span class="qq-emoji-fallback">/草莓</span>
+        {{- else if eq $emojiName "吸烟" -}}
+            <span class="qq-emoji-fallback">/吸烟</span>
+        {{- else if eq $emojiName "礼物" -}}
+            <span class="qq-emoji-fallback">/礼物</span>
+        {{- else if eq $emojiName "炸弹" -}}
+            <span class="qq-emoji-fallback">/炸弹</span>
+        {{- else if eq $emojiName "闪光" -}}
+            <span class="qq-emoji-fallback">/闪光</span>
+        {{- else if eq $emojiName "吹气" -}}
+            <span class="qq-emoji-fallback">/吹气</span>
+        {{- else if eq $emojiName "水" -}}
+            <span class="qq-emoji-fallback">/水</span>
+        {{- else if eq $emojiName "火" -}}
+            <span class="qq-emoji-fallback">/火</span>
+        {{- else if eq $emojiName "睡觉" -}}
+            <span class="qq-emoji-fallback">/睡觉</span>
+        {{- else if eq $emojiName "打针" -}}
+            <span class="qq-emoji-fallback">/打针</span>
+        {{- else if eq $emojiName "邮箱" -}}
+            <span class="qq-emoji-fallback">/邮箱</span>
+        {{- else if eq $emojiName "骑马" -}}
+            <span class="qq-emoji-fallback">/骑马</span>
+        {{- else if eq $emojiName "女孩" -}}
+            <span class="qq-emoji-fallback">/女孩</span>
+        {{- else if eq $emojiName "男孩" -}}
+            <span class="qq-emoji-fallback">/男孩</span>
+        {{- else if eq $emojiName "猴" -}}
+            <span class="qq-emoji-fallback">/猴</span>
+        {{- else if eq $emojiName "猪" -}}
+            <span class="qq-emoji-fallback">/猪</span>
+        {{- else if eq $emojiName "牛" -}}
+            <span class="qq-emoji-fallback">/牛</span>
+        {{- else if eq $emojiName "公鸡" -}}
+            <span class="qq-emoji-fallback">/公鸡</span>
+        {{- else if eq $emojiName "青蛙" -}}
+            <span class="qq-emoji-fallback">/青蛙</span>
+        {{- else if eq $emojiName "虫" -}}
+            <span class="qq-emoji-fallback">/虫</span>
+        {{- else if eq $emojiName "狗" -}}
+            <span class="qq-emoji-fallback">/狗</span>
+        {{- else if eq $emojiName "鲸鱼" -}}
+            <span class="qq-emoji-fallback">/鲸鱼</span>
+        {{- else if eq $emojiName "靴子" -}}
+            <span class="qq-emoji-fallback">/靴子</span>
+        {{- else if eq $emojiName "晴天" -}}
+            <span class="qq-emoji-fallback">/晴天</span>
+        {{- else if eq $emojiName "问号" -}}
+            <span class="qq-emoji-fallback">/问号</span>
+        {{- else if eq $emojiName "便利店" -}}
+            <span class="qq-emoji-fallback">/便利店</span>
+    {{- else -}}
+        <span class="qq-emoji-fallback">:/{{ $emojiName }}:</span>
+    {{- end -}}
+{{- end -}}

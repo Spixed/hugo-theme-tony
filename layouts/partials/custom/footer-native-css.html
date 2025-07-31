@@ -1,0 +1,86 @@
+<!-- Native CSS Variables Theme Toggle -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('ld-switch');
+    
+    // Update icon based on current theme
+    function updateIcon() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        themeToggle.className = 'ri-sun-fill  footer-switch-icon';
+      } else {
+        themeToggle.className = 'ri-moon-fill  footer-switch-icon';
+      }
+    }
+    
+    // Initialize icon
+    updateIcon();
+    
+    // Theme toggle functionality
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      // Apply new theme
+      document.documentElement.setAttribute('data-theme', newTheme);
+      
+      // Save preference
+      setCookie('isDark', (newTheme === 'dark').toString(), 365);
+      
+      // Update icon
+      updateIcon();
+    });
+    
+    // Language toggle functionality (preserved from original)
+    const langToggle = document.getElementById('i18n');
+    if (langToggle) {
+      langToggle.addEventListener('click', function() {
+        // const currentLang = getCookie('lang') || 'zh';
+        // const newLang = currentLang === 'zh' ? 'en' : 'zh';
+        // setCookie('lang', newLang, 365);
+        
+        // const currentPath = window.location.pathname;
+        // if (newLang === 'en') {
+        //   if (!currentPath.startsWith('/en/')) {
+        //     window.location.href = '/en' + currentPath;
+        //   }
+        // } else {
+        //   if (currentPath.startsWith('/en/')) {
+        //     window.location.href = currentPath.substring(3);
+        //   }
+        // }
+        const lang = getCookie('lang') || 'zh';
+        let cntURL = window.location.pathname;
+        if (lang == "en") {
+            window.location.pathname = cntURL.replace("/en/", "/");
+            setCookie("lang", "zh-cn", 30);
+        } else {
+            window.location.pathname = "/en" + cntURL;
+            setCookie("lang", "en", 30);
+        }
+      });
+    }
+  });
+  
+  // Cookie helper functions (if not already defined)
+  if (typeof setCookie === 'undefined') {
+    function setCookie(name, value, days) {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+      document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
+    }
+  }
+  
+  if (typeof getCookie === 'undefined') {
+    function getCookie(name) {
+      const nameEQ = name + '=';
+      const ca = document.cookie.split(';');
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+  }
+</script>

@@ -49,6 +49,51 @@
             position: relative !important;
             inset-inline-start: 0 !important;
         }
+
+        /* Waline 暗色模式样式 */
+        [data-theme="dark"] .wl-input,
+        [data-theme="dark"] .wl-editor,
+        [data-theme="dark"] .wl-textarea {
+            background-color: var(--bg-tertiary) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .wl-input:focus,
+        [data-theme="dark"] .wl-editor:focus,
+        [data-theme="dark"] .wl-textarea:focus {
+            border-color: var(--accent-primary) !important;
+            box-shadow: 0 0 0 0.2rem rgba(var(--accent-primary), 0.25) !important;
+        }
+
+        [data-theme="dark"] .wl-panel {
+            background-color: var(--bg-secondary) !important;
+            border-color: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] .wl-btn {
+            background-color: var(--bg-tertiary) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .wl-btn:hover {
+            background-color: var(--accent-primary) !important;
+            border-color: var(--accent-primary) !important;
+        }
+
+        [data-theme="dark"] .wl-card {
+            background-color: var(--bg-secondary) !important;
+            border-color: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] .wl-comment-text {
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .wl-meta {
+            color: var(--text-muted) !important;
+        }
     </style>
     {{- end }}
 
@@ -56,7 +101,7 @@
     <link rel="canonical" href="{{ .Permalink }}" />
     {{- $Deliver := . -}}
 
-    {{ partial "custom/head.html" . }}
+    {{ partial "custom/head-native-css.html" . }}
 
     {{ $cdnURL := "/" }}
     {{ $description := "" }}
@@ -65,5 +110,10 @@
     <link rel="stylesheet" href="{{ $cdnURL }}css/bootstrap.min.css" />
     <link rel="stylesheet" href="{{ $cdnURL }}css/remixicon/remixicon.css" />
     <link rel="stylesheet" href="{{ $cdnURL }}css/toc.css" />
+
+    <!-- Lottie for Super QQ Emojis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.13.0/lottie.min.js"
+        integrity="sha512-uOtp2vx2X/5+tLBEf5UoQyqwAkFZJBM5XwGa7BfXDnWR+wdpRvlSVzaIVcRe3tGNsStu6UMDCeXKEnr4IBT8gA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>

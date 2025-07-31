@@ -1,0 +1,11 @@
+# Data
+data/qq_emoji_mapping_backup.json
+
+# Hugo output
+public/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor settings

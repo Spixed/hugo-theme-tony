@@ -1,0 +1,32 @@
+<!-- 备份：原DarkReader切换逻辑 -->
+<script lang="javascript">
+    const switcher = document.getElementById("ld-switch");
+    const i18n = document.getElementById("i18n");
+    switcher.setAttribute("class", "ri-" + icon + "-fill footer-switch-icon");
+
+    switcher.onclick = function (params) {
+        var status = getCookie("isDark");
+        if (status == "true") {
+            DarkReader.disable();
+            icon = "moon";
+            setCookie("isDark", false, 30);
+        } else if (status == "false") {
+            DarkReader.enable();
+            icon = "sun";
+            setCookie("isDark", true, 30);
+        }
+        switcher.setAttribute("class", "ri-" + icon + "-fill footer-switch-icon");
+    }
+
+    i18n.onclick = function (params) {
+        var lang = getCookie("lang");
+        let cntURL = window.location.pathname;
+        if (lang == "en") {
+            window.location.pathname = cntURL.replace("/en/", "/");
+            setCookie("lang", "zh-cn", 30);
+        } else {
+            window.location.pathname = "/en" + cntURL;
+            setCookie("lang", "en", 30);
+        }
+    }
+</script>

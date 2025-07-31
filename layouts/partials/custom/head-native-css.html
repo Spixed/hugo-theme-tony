@@ -1,0 +1,74 @@
+<!-- Lottie Library for QQ Super Emoji -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.13.0/lottie.min.js"
+        integrity="sha512-uOtp2vx2X/5+tLBEf5UoQyqwAkFZJBM5XwGa7BfXDnWR+wdpRvlSVzaIVcRe3tGNsStu6UMDCeXKEnr4IBT8gA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Native CSS Variables Dark Mode Implementation -->
+<script>
+  // Cookie management functions
+  function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
+  }
+
+  function getCookie(name) {
+    const nameEQ = name + '=';
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  // Theme management
+  function initTheme() {
+    const savedTheme = getCookie('isDark');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Determine initial theme
+    let isDark;
+    if (savedTheme !== null) {
+      isDark = savedTheme === 'true';
+    } else {
+      isDark = prefersDark;
+    }
+    
+    // Apply theme
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    
+    // Save preference if not already saved
+    if (savedTheme === null) {
+      setCookie('isDark', isDark.toString(), 365);
+    }
+  }
+
+  // Initialize theme immediately to prevent flash
+  initTheme();
+
+  document.addEventListener("DOMContentLoaded", function () {
+        var lang = getCookie("lang");
+        let cntURL = window.location.pathname;
+        let cntLang = cntURL.split("/")[1];
+        // alert(lang + ", " + cntURL + ", " + cntLang);
+        if (cntLang == "en" && lang != "en") {
+            window.location.pathname = cntURL.replace("/en/", "/");
+        } else if (cntLang != "en" && lang == "en") {
+            window.location.pathname = "/en" + cntURL;
+        }
+    });
+</script>
+
+<style>
+  /* Prevent flash of unstyled content */
+  html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Smooth transitions for theme changes */
+  * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+</style>

@@ -1,0 +1,29 @@
+<!-- 自定义脚本区域 -->
+
+<!-- QQ表情Lottie动画初始化 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 初始化所有lottie表情动画
+    const lottieElements = document.querySelectorAll('.super-qmoji[data-lottie-path]');
+
+    lottieElements.forEach(function(element) {
+        const lottiePath = element.getAttribute('data-lottie-path');
+        if (lottiePath) {
+            try {
+                bodymovin.loadAnimation({
+                    container: element,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: lottiePath
+                });
+            } catch (error) {
+                console.warn('Failed to load lottie animation:', lottiePath, error);
+                // 如果lottie加载失败，显示fallback
+                element.innerHTML = element.getAttribute('title') || '表情';
+                element.className = 'qq-emoji-fallback';
+            }
+        }
+    });
+});
+</script>
