@@ -1,0 +1,640 @@
+/* 文章卡片样式 */
+
+// 变量定义
+$primary-gold: #ffd700;
+$light-gold: #fffbea;
+$shadow-gold: rgba(255, 215, 0, 0.18);
+$shadow-gold-hover: rgba(255, 215, 0, 0.28);
+$transition-fast: 0.15s ease;
+$transition-normal: 0.3s ease;
+
+// 文章列表容器
+.article-list-container {
+    width: 100%;
+    max-width: 100%;
+}
+
+// 文章列表
+.article-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+// 文章卡片基础样式
+.article-list-item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+    width: 100%;
+    max-width: 100%;
+    // 新拟态风格阴影 - 更明显的层次感
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.12),
+        0 2px 6px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transition: all $transition-normal;
+    position: relative;
+    border: 2px solid transparent;
+
+    &:hover {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+    }
+
+    // 精选文章样式 - 静态高亮效果
+    &.featured {
+        border: 3px solid $primary-gold;
+        border-radius: 12px;
+        background: #fff;
+        position: relative;
+        box-shadow:
+            0 4px 20px rgba(255, 215, 0, 0.15),
+            0 2px 8px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+        // 内发光效果
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 215, 0, 0.08) 0%,
+                transparent 30%,
+                transparent 70%,
+                rgba(255, 215, 0, 0.05) 100%
+            );
+            border-radius: 9px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        &:hover {
+            border-color: lighten($primary-gold, 10%);
+            box-shadow:
+                0 6px 28px rgba(255, 215, 0, 0.25),
+                0 4px 12px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transform: translateY(-3px);
+        }
+    }
+
+    // 隐藏状态（用于过滤）
+    &.hidden {
+        display: none;
+    }
+}
+
+// 静态高亮效果 - 移除动画以提升性能
+
+// Pin图标
+.pin-icon {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(
+        135deg,
+        $primary-gold 0%,
+        lighten($primary-gold, 15%) 50%,
+        lighten($primary-gold, 25%) 100%
+    );
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+    pointer-events: none;
+    z-index: 2;
+
+    i {
+        color: #fff;
+        font-size: 14px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+}
+
+// 文章底部信息
+.article-list-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.article-list-date {
+    color: #666;
+}
+
+.article-list-divider {
+    color: #ccc;
+}
+
+// 作者信息
+.article-author {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #666;
+    text-decoration: none;
+
+    &:hover {
+        color: #333;
+    }
+}
+
+.author-mini-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #eee;
+}
+
+// 精选标识
+.featured-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: $primary-gold;
+    font-weight: 500;
+
+    i {
+        font-size: 0.9rem;
+    }
+}
+
+// 无限滚动加载指示器
+.infinite-scroll-indicator {
+    text-align: center;
+    margin: 40px 0;
+    padding: 20px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    .loading-spinner {
+        i {
+            font-size: 1.2rem;
+            animation: spin 1s linear infinite;
+        }
+    }
+
+    span {
+        font-size: 0.9rem;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// 无文章提示
+.no-articles {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+
+    .no-articles-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        opacity: 0.5;
+    }
+
+    p {
+        font-size: 1.1rem;
+        margin: 0;
+    }
+}
+
+// 移动端适配
+@media (max-width: 768px) {
+    .mobile-articles-section {
+        .article-list-container {
+            padding: 0 8px;
+        }
+
+        .article-list-item {
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 16px;
+
+            // 移动端触摸优化
+            &:active {
+                transform: scale(0.98);
+                transition: transform 0.1s ease;
+            }
+
+            &.featured {
+                .pin-icon {
+                    width: 26px;
+                    height: 26px;
+                    left: 14px;
+                    top: 14px;
+
+                    i {
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+
+    .article-list-footer {
+        font-size: 0.85rem;
+        gap: 8px;
+        margin-top: 16px;
+    }
+
+    .author-mini-avatar {
+        width: 20px;
+        height: 20px;
+    }
+
+    .load-more-btn {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+        border-radius: 12px;
+        margin: 20px auto;
+        display: block;
+    }
+}
+
+// 文章卡片内容样式增强
+.article-list-item {
+    h5 {
+        color: #333;
+        font-weight: 600;
+        line-height: 1.5;
+        margin: 0 0 12px;
+        font-size: 1.25rem;
+
+        &:hover {
+            color: #007bff;
+        }
+
+        @media (max-width: 768px) {
+            font-size: 1.15rem;
+            line-height: 1.4;
+            margin: 0 0 10px;
+        }
+    }
+
+    p {
+        color: #666;
+        line-height: 1.6;
+        margin: 0 0 20px;
+        font-size: 0.95rem;
+
+        @media (max-width: 768px) {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin: 0 0 16px;
+        }
+    }
+
+    // 分类标签样式
+    .article-list-type1 {
+        background: #f8f9fa;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        color: #666;
+        font-style: normal;
+    }
+
+    .img-cate {
+        background: rgba(255, 152, 0, 0.1);
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        text-decoration: none;
+
+        &:hover {
+            background: rgba(255, 152, 0, 0.2);
+        }
+    }
+}
+
+// 状态文章样式
+.article-status {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+    margin: 10px 0;
+}
+
+// 购买相关样式
+.buy-list-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background: var(--bg-color);
+    border-radius: 8px;
+    margin: 10px 0;
+    min-height: 100px;
+
+    .buy-left-img-noborder {
+        flex-shrink: 0;
+
+        img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    }
+
+    .buy-right-info {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        min-width: 0;
+        gap: 10px;
+        /* height: 100%; */
+
+        > div:first-child {
+            flex: 1;
+            margin-bottom: 16px;
+        }
+
+        > div:last-child {
+            align-self: flex-start;
+        }
+
+        h3 {
+            margin: 0 0 12px;
+            font-size: 1.2rem;
+            color: #333;
+            line-height: 1.3;
+        }
+
+        p {
+            margin: 0 0 16px;
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+
+            span {
+                display: inline-flex;
+                align-items: center;
+            }
+        }
+    }
+
+    // 移动端优化
+    @media (max-width: 768px) {
+        gap: 18px;
+        padding: 18px;
+        margin: 20px 0;
+        border-radius: 16px;
+        min-height: auto;
+
+        .buy-left-img-noborder {
+            flex-shrink: 0;
+
+            img {
+                width: 90px;
+                height: 90px;
+                border-radius: 12px;
+            }
+        }
+
+        .buy-right-info {
+            > div:first-child {
+                margin-bottom: 14px;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+                margin: 0 0 10px;
+            }
+
+            p {
+                font-size: 0.9rem;
+                margin: 0 0 14px;
+                line-height: 1.6;
+            }
+
+            a {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+                border-radius: 8px;
+                min-width: 120px;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+// 无障碍支持样式
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+// 加载指示器样式
+.loading-indicator {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity $transition-normal;
+
+    &.active {
+        opacity: 1;
+    }
+
+    .loading-spinner {
+        i {
+            font-size: 1.2rem;
+            animation: spin 1s linear infinite;
+            color: $primary-gold;
+        }
+    }
+
+    span {
+        font-size: 0.9rem;
+    }
+}
+
+// 滚动哨兵
+.scroll-sentinel {
+    height: 1px;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+// 焦点可见性改进
+.article-list-item:focus-within {
+    outline: 2px solid $primary-gold;
+    outline-offset: 2px;
+}
+
+// 减少动画对于偏好用户
+@media (prefers-reduced-motion: reduce) {
+    .article-list-item,
+    .pin-icon,
+    .loading-spinner i {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+// 高对比度模式
+@media (prefers-contrast: high) {
+    .article-list-item {
+        border: 2px solid #000;
+
+        &.featured {
+            border: 3px solid #000;
+            background: #fff;
+
+            &::before {
+                display: none;
+            }
+        }
+
+        &:hover {
+            background: #f0f0f0;
+        }
+    }
+
+    .pin-icon {
+        background: #000;
+        color: #fff;
+        border: 2px solid #fff;
+    }
+}
+
+// 暗色模式下的文章卡片
+[data-theme="dark"] {
+    .article-list-item {
+        background: #2d2d2d;
+        border-color: #444;
+        color: #e0e0e0;
+
+        &.featured {
+            border-color: $primary-gold;
+            background: #2d2d2d;
+
+            &::before {
+                background: linear-gradient(
+                    135deg,
+                    rgba(255, 215, 0, 0.05) 0%,
+                    transparent 30%,
+                    transparent 70%,
+                    rgba(255, 215, 0, 0.03) 100%
+                );
+            }
+        }
+
+        &:hover {
+            background: #333;
+        }
+
+        h5 {
+            color: #e0e0e0;
+
+            &:hover {
+                color: #4da6ff;
+            }
+        }
+
+        p {
+            color: #b0b0b0;
+        }
+
+        @media (max-width: 768px) {
+            background: #262626;
+
+            &:active {
+                background: #2a2a2a;
+            }
+        }
+    }
+
+    .buy-list-item {
+        @media (max-width: 768px) {
+            background: #333;
+
+            .buy-right-info {
+                h3 {
+                    color: #e0e0e0;
+                }
+
+                p {
+                    color: #b0b0b0;
+                }
+
+                a {
+                    background: #2d2d2d;
+                    border-color: #4da6ff;
+                    color: #4da6ff;
+
+                    &:hover {
+                        background: #4da6ff;
+                        color: #000;
+                    }
+                }
+            }
+        }
+    }
+
+    .no-articles {
+        color: #888;
+    }
+
+    .loading-indicator {
+        color: #b0b0b0;
+    }
+}

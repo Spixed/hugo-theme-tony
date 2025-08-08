@@ -7,6 +7,10 @@ Description: An Elegant Hugo Theme Based on WordPress Theme Tony, modified by Sp
 Version: 2.0.2
 */
 
+// 导入多作者和精选文章相关样式
+@import "author-selector";
+@import "article-card";
+
 @font-face {
     font-family: Product Sans;
     src: url(/fonts/productsans.ttf);
@@ -81,6 +85,74 @@ Version: 2.0.2
         --scrollbar-thumb-hover: #666666;
         color-scheme: dark;
     }
+}
+
+/* 性能优化样式 */
+/* GPU加速和硬件加速 */
+.article-list-item,
+.author-avatar,
+.center-avatar-img,
+.author-selector,
+.mobile-overlay {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* 动画性能优化 */
+.article-list-item {
+    will-change: transform, box-shadow;
+}
+
+.author-avatar {
+    will-change: transform, border-color, box-shadow;
+}
+
+.center-avatar-img.selecting {
+    will-change: border-color, box-shadow;
+}
+
+.author-selector.active {
+    will-change: opacity, visibility;
+}
+
+/* 滚动性能优化 */
+.article-list-container {
+    contain: layout style paint;
+    overflow-anchor: auto;
+}
+
+.article-list {
+    contain: layout paint;
+}
+
+/* 减少重绘和回流 */
+.article-list-item:hover {
+    contain: layout;
+}
+
+/* 图片优化 */
+img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+.article-list-img {
+    contain: strict;
+    content-visibility: auto;
+    contain-intrinsic-size: 150px 100px;
+}
+
+/* 字体渲染优化 */
+body {
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 减少复合层创建 */
+.pin-icon {
+    isolation: isolate;
 }
 
 .gray-mode {
@@ -3115,7 +3187,7 @@ input:focus {
 }
 
 .footer-switch {
-    left: 90px;
+    left: 30px;
     text-align: center;
     padding-top: 5.5px !important;
     padding-left: 0 !important;
@@ -3139,7 +3211,7 @@ body {
 }
 
 .footer-i18n {
-    left: 150px;
+    left: 90px;
     text-align: center;
     padding-top: 5.5px !important;
     padding-left: 0 !important;
@@ -3554,14 +3626,9 @@ body {
     display: flex;
     border: 1px solid hsla(0, 0%, 93.3%, 0.73);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-    height: 60px;
     margin-bottom: 20px;
     margin-top: -5px;
     border-radius: 4px;
-}
-
-.buy-list-item .buy-left-img-noborder {
-    width: 60px;
 }
 
 .buy-list-item .buy-left-img-noborder img {
@@ -3586,7 +3653,7 @@ body {
     margin-left: 3.5%;
     display: flex;
     line-height: 1;
-    padding: 7px 0 0;
+    padding: 12px 0 0;
 }
 
 .buy-list-item .buy-right-info h3 {
@@ -3617,10 +3684,9 @@ body {
     font-weight: 600;
     letter-spacing: 0.5px;
     opacity: 1;
+    padding: 8px 8px 8px 12px;
     white-space: nowrap;
     margin-top: 6.2px;
-    display: inline-block;
-    margin-right: -12px;
     opacity: 0.8;
 }
 
@@ -3634,7 +3700,6 @@ body {
 .buy-list-item .buy-right-info div:nth-child(2) a span i {
     font-size: 20px;
     display: inline-block;
-    margin-bottom: -10px;
     vertical-align: text-top;
     transform: translateY(-1px);
 }
@@ -3807,6 +3872,34 @@ body {
 @media screen and (max-width: 768px) {
     .header-div2 {
         display: none;
+    }
+}
+
+// 移动端横屏优化 - 防止按钮换行
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .header-div2 {
+        display: flex !important;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 5px;
+        padding: 0 10px;
+
+        a {
+            flex-shrink: 0;
+
+            .btn {
+                padding: 4px 8px !important;
+                font-size: 0.8rem !important;
+                white-space: nowrap;
+                min-width: auto;
+            }
+        }
+    }
+
+    .tony-header-fixed,
+    .tony-header-scroll {
+        padding: 0 20px;
+        height: 50px;
     }
 }
 

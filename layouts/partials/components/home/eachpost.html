@@ -1,73 +1,159 @@
-{{ if or (.Params.Categories) (.Params.statusCate) }}
-    {{ if .Params.buy }}
-        <div>
-            <div class="buy-list-item">
-                <div class="buy-left-img-noborder">
-                    <img src="{{ .Params.buyImage }}">
-                </div>
-                <div class="buy-right-info">
-                    <div>
-                        <a href="{{ .Params.buyLink }}" target="_blank">
-                            <h3>
-                                {{ .Params.buyName }}
-                            </h3>
-                        </a>
-                        <p>
-                            {{ .Params.buyInfo }}
-                        </p>
-                   </div>
-                   <div>
-                        <a href="{{ .Params.buyLink }}" target="_blank">
-                            {{ .Params.buyButtonText }}
-                            <span>
-                                <i class="ri-arrow-right-up-line">
-                                </i>
-                            </span>
-                        </a>
-                    </div>
-                </div>
+<!--
+主要优化点：
+1.  使用 `with` 来处理 `.Params.buy`，减少一层嵌套。
+2.  提前处理分类显示的条件，使逻辑更清晰。
+3.  将文章内容（标题/摘要 或 Content）的显示逻辑整合。
+4.  明确区分状态文章和普通文章的页脚信息显示。
+5.  添加注释说明主要逻辑块。
+-->
+
+<!--
+========================
+  购买信息块 (Buy Block)
+========================
+仅当定义了 Categories 或 statusCate，并且定义了 buy 时才显示。
+注意：根据原始逻辑，即使定义了 status，只要 buy 为真，也会显示购买块。
+-->
+{{ if or (.Params.Categories) (.Params.statusCate) }} {{ with .Params.buy }}
+<div>
+    <div class="buy-list-item">
+        <div class="buy-left-img-noborder">
+            <img src="{{ $.Params.buyImage }}" />
+            <!-- 使用 $. 来引用父级上下文 -->
+        </div>
+        <div class="buy-right-info">
+            <div>
+                <a href="{{ $.Params.buyLink }}" target="_blank">
+                    <h3>{{ $.Params.buyName }}</h3>
+                </a>
+                <p>{{ $.Params.buyInfo }}</p>
+            </div>
+            <div>
+                <a href="{{ $.Params.buyLink }}" target="_blank">
+                    {{ $.Params.buyButtonText }}
+                    <span>
+                        <i class="ri-arrow-right-up-line"> </i>
+                    </span>
+                </a>
             </div>
         </div>
-        {{ if not .Params.status }}
-            {{ if .Params.categoryLink }}
-                <div>
-                    <a href="{{ .Params.categoryLink }}" class="img-cate list-normal-tag" style="color: rgba(255, 152, 0, 0.83) !important;">
-                        <b>{{ delimit .Params.Categories " | " }}</b>
-                    </a>
-                </div>
-            {{ else }}
-                <div>
-                    <em class="article-list-type1">
-                        <b>{{ delimit .Params.Categories " | " }}</b>
-                    </em>
-                </div>
-            {{ end }}
-        {{ end }}
-    {{ end }}
-{{ end }}
-<div>
-    {{ if not .Params.status }}
-        <a href="{{ .Permalink | relURL }}" class="" style="text-decoration: none;">
-            <h5 style="margin: 15px 0px 0px; padding: 0px;">{{.Title}}</h5>
-        </a>
-        <p>{{ .Summary }}...</p>
-    {{ else }}
-        <p class="article-list-content article-status">{{ .Content }}</p>
-    {{ end }}
-    <div class="article-list-footer">
-        <span class="article-list-date">{{ .Date.Format "06-01-02" }}</span>
-        {{ if .Params.buy }}
-            {{ if .Params.Categories }}
-                <span class="article-list-divider">-</span>
-                <a class="article-list-date" style="margin: 0px;">{{ delimit .Params.Categories " | " }}</a>
-            {{ end }}
-        {{ end }}
-        {{ if .Params.status}}
-            <span class="article-list-divider">-</span>
-            <span class="article-list-minutes">
-                <i class="ri-contrast-2-line"></i>
-                状态 | {{ .Params.statusCate }}
-            </span>
-        {{ end }}
     </div>
 </div>
+
+<!--
+        ========================
+          分类信息 (Categories)
+        ========================
+        在购买块下方显示分类信息，但仅当未定义 status 时。
+        -->
+{{ if not $.Params.status }}
+<!-- 使用 $. 来引用父级上下文 -->
+{{ if $.Params.categoryLink }}
+<div>
+    <a
+        href="{{ $.Params.categoryLink }}"
+        class="img-cate list-normal-tag"
+        style="color: rgba(255, 152, 0, 0.83) !important"
+    >
+        <b>{{ delimit $.Params.Categories " | " }}</b>
+    </a>
+</div>
+{{ else }}
+<div>
+    <em class="article-list-type1">
+        <b>{{ delimit $.Params.Categories " | " }}</b>
+    </em>
+</div>
+{{ end }} {{ end }} {{ end }}
+<!-- End with .Params.buy -->
+{{ end }}
+<!-- End if Categories or statusCate -->
+
+<!--
+========================
+  文章主体内容 (Main Content)
+========================
+包括标题/摘要或完整内容。
+-->
+<div>
+    {{ if not .Params.status }}
+    <!-- 普通文章 -->
+    {{ if .Params.noclick }}
+    <h5 style="margin: 15px 0px 0px; padding: 0px">{{ .Title }}</h5>
+    <p>{{ .Summary }}{{ if .Truncated }}...{{ end }}</p>
+    {{ else }}
+    <a href="{{ .Permalink | relURL }}" class="" style="text-decoration: none">
+        <h5 style="margin: 15px 0px 0px; padding: 0px">{{ .Title }}</h5>
+    </a>
+    <p>{{ .Summary }}{{ if .Truncated }}...{{ end }}</p>
+    {{ end }} {{ else }}
+    <!-- 状态文章 -->
+    {{ if .Params.noclick }} {{ .Content }} {{ else }}
+    <a href="{{ .Permalink | relURL }}" class="" style="text-decoration: none">
+        <p class="article-list-content article-status">{{ .Content }}</p>
+    </a>
+    {{ end }} {{ end }}
+
+    <!--
+    ========================
+      文章页脚 (Footer)
+    ========================
+    -->
+    <div class="article-list-footer">
+        <span class="article-list-date">{{ .Date.Format "06-01-02" }}</span>
+
+        <!-- 作者信息 -->
+        {{ $authorKey := .Params.author | default "spixed" }} {{ $author :=
+        index .Site.Data.authors $authorKey }} {{ with $author }}
+        <!-- 使用 with 简化 author 存在性检查 -->
+        <span class="article-list-divider">-</span>
+        <span class="article-author" title="{{ .name }}">
+            <!-- 在 with 块内，. 指向 $author -->
+            <img
+                src="{{ .avatar | relURL }}"
+                class="author-mini-avatar"
+                alt="{{ .name }}"
+            />
+            {{ .nickname }}
+        </span>
+        {{ end }}
+        <!-- End with $author -->
+
+        <!--
+        ========================
+          页脚中的分类信息 (Footer Categories)
+        ========================
+        仅当定义了 buy 且定义了 Categories 时显示。
+        (注意：这可能导致与购买块中的分类重复显示)
+        -->
+        {{ if and .Params.buy .Params.Categories }}
+        <span class="article-list-divider">-</span>
+        <a class="article-list-date" style="margin: 0px"
+            >{{ delimit .Params.Categories " | " }}</a
+        >
+        {{ end }}
+
+        <!-- 状态信息 -->
+        {{ with .Params.status }}
+        <!-- 使用 with 简化 status 存在性检查 -->
+        <span class="article-list-divider">-</span>
+        <span class="article-list-minutes">
+            <i class="ri-contrast-2-line"></i>
+            状态 | {{ $.Params.statusCate }}
+            <!-- 使用 $. 引用父级上下文获取 statusCate -->
+        </span>
+        {{ end }}
+        <!-- End with .Params.status -->
+
+        <!-- 精选标识 -->
+        {{ if .Params.featured }}
+        <span class="article-list-divider">-</span>
+        <span class="featured-badge" title="精选文章">
+            <i class="ri-star-fill"></i>
+            精选
+        </span>
+        {{ end }}
+    </div>
+    <!-- End article-list-footer -->
+</div>
+<!-- End main content div -->

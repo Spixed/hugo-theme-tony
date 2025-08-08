@@ -1,16 +1,35 @@
 {{ define "main" }}
-    <div id="index" class="pjax-container">
-        <div class="grid grid-centered" style="max-width: 660px; padding: 0px 20px; margin-top: 80px;">
-            <div id="grid-cell" class="grid-cell">
-                {{ $paginator := .Paginate (where .Site.RegularPages "Section" "in" .Site.Params.mainSections) }}
-
-                {{ partial "components/home/header-info.html" . }}
-
-                {{ partial "components/home/article-list.html" . }}
-                    
-                {{ partial "components/home/adjacent-pages.html" (dict "paginator" $paginator) }}
-
+    <div id="index" class="pjax-container multi-author-layout">
+        <!-- PC端布局 -->
+        <div class="desktop-layout">
+            <!-- 左侧作者选择区域 (2/5宽度) -->
+            <div class="author-section">
+                {{ partial "components/home/author-selector.html" . }}
             </div>
+
+            <!-- 右侧文章区域 (3/5宽度) -->
+            <div class="articles-section">
+                {{ partial "components/home/multi-author-article-list.html" . }}
+            </div>
+        </div>
+
+        <!-- 移动端布局 -->
+        <div class="mobile-layout">
+            <!-- 顶部当前作者显示 -->
+            <div class="mobile-author-header">
+                {{ partial "components/home/author-selector.html" . }}
+            </div>
+
+            <!-- 文章列表 -->
+            <div class="mobile-articles-section">
+                {{ partial "components/home/multi-author-article-list.html" . }}
+            </div>
+        </div>
+
+        <!-- 保留原有的分页功能（隐藏，由JS控制） -->
+        <div style="display: none;">
+            {{ $paginator := .Paginate (where .Site.RegularPages "Section" "in" .Site.Params.mainSections) }}
+            {{ partial "components/home/adjacent-pages.html" (dict "paginator" $paginator) }}
         </div>
     </div>
 {{ end }}

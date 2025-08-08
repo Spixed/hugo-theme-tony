@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh">
     {{ partial "head.html" . }}
-
-    {{ partial "header.html" . }}
     <body>
+        {{ partial "header.html" . }}
         <div id="index">
             <div class="grid grid-centered" style="max-width: 660px; padding: 0px 20px; margin-top: 80px;">
                 <div id="grid-cell" class="grid-cell">
                     {{ $paginator := .Paginate (where .Site.RegularPages "Section" "in" .Site.Params.mainSections) }}
-                    
+
                     {{ partial "pages/taxonomy-header.html" . }}
                     <ul class="article-list">
                     {{ range .Data.Pages }}
@@ -32,8 +31,7 @@
                 </div>
             </div>
         </div>
+        {{ partial "footer.html" . }}
+        {{ partial "script.html" . }}
     </body>
-    {{ partial "footer.html" . }}
-
-    {{ partial "script.html" . }}
 </html>

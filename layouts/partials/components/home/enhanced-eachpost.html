@@ -1,0 +1,96 @@
+<!-- 增强版文章卡片组件，支持作者信息显示 -->
+{{ if or (.Params.Categories) (.Params.statusCate) }} {{ if .Params.buy }}
+<div>
+    <div class="buy-list-item">
+        <div class="buy-left-img-noborder">
+            <img src="{{ .Params.buyImage }}" />
+        </div>
+        <div class="buy-right-info">
+            <div>
+                <a href="{{ .Params.buyLink }}" target="_blank">
+                    <h3>{{ .Params.buyName }}</h3>
+                </a>
+                <p>{{ .Params.buyInfo }}</p>
+            </div>
+            <div>
+                <a href="{{ .Params.buyLink }}" target="_blank">
+                    {{ .Params.buyButtonText }}
+                    <span>
+                        <i class="ri-arrow-right-up-line"> </i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{{ if not .Params.status }} {{ if .Params.categoryLink }}
+<div>
+    <a
+        href="{{ .Params.categoryLink }}"
+        class="img-cate list-normal-tag"
+        style="color: rgba(255, 152, 0, 0.83) !important"
+    >
+        <b>{{ delimit .Params.Categories " | " }}</b>
+    </a>
+</div>
+{{ else }}
+<div>
+    <em class="article-list-type1">
+        <b>{{ delimit .Params.Categories " | " }}</b>
+    </em>
+</div>
+{{ end }} {{ end }} {{ end }} {{ end }}
+
+<div style="margin-left: 12px; margin-right: 12px">
+    {{ if not .Params.status }} {{ if .Params.noclick }}
+    <h5 style="margin: 15px 0px 0px; padding: 0px">{{.Title}}</h5>
+    <p>{{ .Summary }}{{ if .Truncated }}...{{ end }}</p>
+    {{ else }}
+    <a href="{{ .Permalink | relURL }}" class="" style="text-decoration: none">
+        <h5 style="margin: 15px 0px 0px; padding: 0px">{{.Title}}</h5>
+    </a>
+    <p>{{ .Summary }}{{ if .Truncated }}...{{ end }}</p>
+    {{ end }} {{ else }} {{ if .Params.noclick }} {{ .Content }} {{ else }}
+    <a href="{{ .Permalink | relURL }}" class="" style="text-decoration: none">
+        <p class="article-list-content article-status">{{ .Content }}</p>
+    </a>
+    {{ end }} {{ end }}
+
+    <div class="article-list-footer">
+        <span class="article-list-date">{{ .Date.Format "06-01-02" }}</span>
+
+        <!-- 作者信息 -->
+        {{ $authorKey := .Params.author | default "spixed" }} {{ $author :=
+        index .Site.Data.authors $authorKey }} {{ if $author }}
+        <span class="article-list-divider">-</span>
+        <span class="article-author" title="{{ $author.name }}">
+            <img
+                src="{{ $author.avatar | relURL }}"
+                class="author-mini-avatar"
+                alt="{{ $author.name }}"
+            />
+            {{ $author.nickname }}
+        </span>
+        {{ end }} {{ if .Params.buy }} {{ if .Params.Categories }}
+        <span class="article-list-divider">-</span>
+        <a class="article-list-date" style="margin: 0px"
+            >{{ delimit .Params.Categories " | " }}</a
+        >
+        {{ end }} {{ end }} {{ if .Params.status}}
+        <span class="article-list-divider">-</span>
+        <span class="article-list-minutes">
+            <i class="ri-contrast-2-line"></i>
+            状态 | {{ .Params.statusCate }}
+        </span>
+        {{ end }}
+
+        <!-- 精选标识 -->
+        {{ if .Params.featured }}
+        <span class="article-list-divider">-</span>
+        <span class="featured-badge" title="精选文章">
+            <i class="ri-star-fill"></i>
+            精选
+        </span>
+        {{ end }}
+    </div>
+</div>

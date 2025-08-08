@@ -1,0 +1,108 @@
+<!-- 优化的多作者文章列表组件 -->
+<div class="article-list-container" id="articleListContainer">
+    <!-- 文章列表 -->
+    <ul class="article-list" id="articleList">
+        {{ $allPosts := where .Site.RegularPages "Section" "in"
+        .Site.Params.mainSections }} {{ range $allPosts }} {{ $author :=
+        .Params.author | default "spixed" }} {{ $featured := .Params.featured |
+        default false }}
+        <li
+            class="article-list-item {{ if $featured }}featured{{ end }}"
+            data-author="{{ $author }}"
+            data-featured="{{ $featured }}"
+            data-date="{{ .Date.Unix }}"
+            data-weight="{{ .Params.weight | default 999 }}"
+        >
+            {{ if $featured }}
+            <!-- 精选文章图标 -->
+            <div class="pin-icon" title="精选文章" aria-label="精选文章">
+                <i class="ri-pushpin-2-fill"></i>
+            </div>
+            {{ end }} {{ if .Params.thumbnail }}
+            <div class="article-list-img-else">
+                <div
+                    class="article-list-img"
+                    style="background-image: url('{{ .Params.thumbnail }}');"
+                    role="img"
+                    aria-label="{{ .Title }}缩略图"
+                ></div>
+                <div class="article-list-img-right">
+                    {{ partial "components/home/enhanced-eachpost.html" . }}
+                </div>
+            </div>
+            {{ else }} {{ partial "components/home/enhanced-eachpost.html" . }}
+            {{ end }}
+        </li>
+        {{ end }}
+    </ul>
+
+    <!-- 加载状态指示器 -->
+    <div
+        class="loading-indicator"
+        id="loadingIndicator"
+        style="display: none"
+        role="status"
+        aria-live="polite"
+    >
+        <div class="loading-spinner" aria-hidden="true">
+            <i class="ri-loader-4-line"></i>
+        </div>
+        <span class="sr-only">正在加载更多文章...</span>
+    </div>
+
+    <!-- 无文章提示 -->
+    <div
+        class="no-articles"
+        id="noArticles"
+        style="display: none"
+        role="status"
+    >
+        <div class="no-articles-icon" aria-hidden="true">
+            <i class="ri-file-text-line"></i>
+        </div>
+        <p>该作者暂无文章</p>
+    </div>
+
+    <!-- 滚动哨兵元素 -->
+    <div class="scroll-sentinel" id="scrollSentinel" aria-hidden="true"></div>
+</div>
+
+<!-- 优化的文章数据结构 -->
+<script type="application/json" id="articlesData">
+    {
+      "articles": [
+        {{ range $index, $post := $allPosts }}
+        {
+          "author": {{ ($post.Params.author | default "spixed") | jsonify }},
+          "featured": {{ $post.Params.featured | default false }},
+          "weight": {{ $post.Params.weight | default 999 }},
+          "date": {{ $post.Date.Unix }},
+          "element": {{ printf "article-%d" $index | jsonify }}
+        }{{ if ne $index (sub (len $allPosts) 1) }},{{ end }}
+        {{ end }}
+      ],
+      "totalCount": {{ len $allPosts }}
+    }
+</script>
+
+<!-- 初始化文章列表 -->
+<script>
+    (function () {
+        try {
+            const data = JSON.parse(
+                document.getElementById("articlesData").textContent,
+            );
+            window.articlesMetadata = data;
+
+            // 为每个文章元素添加唯一ID
+            const articles = document.querySelectorAll(".article-list-item");
+            articles.forEach((article, index) => {
+                article.id = `article-${index}`;
+                article.dataset.index = index;
+            });
+        } catch (e) {
+            console.warn("Failed to initialize articles data:", e);
+            window.articlesMetadata = { articles: [], totalCount: 0 };
+        }
+    })();
+</script>

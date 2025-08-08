@@ -1,0 +1,94 @@
+<!-- 统一作者选择器组件 -->
+<div class="author-selector-wrapper" id="authorSelectorWrapper">
+    <!-- 中心区域容器 -->
+    <div class="center-area">
+        <!-- 中心头像触发器 -->
+        <div class="center-trigger" id="centerTrigger">
+            <div class="center-avatar-container">
+                <img
+                    src="/site/logo.png"
+                    class="center-avatar-img"
+                    id="centerAvatarImg"
+                    alt="点击选择作者"
+                />
+            </div>
+        </div>
+
+        <!-- 作者选择器 -->
+        <div class="author-selector" id="authorSelector">
+            <div class="author-polygon" id="authorPolygon">
+                {{ range $key, $author := .Site.Data.authors }}
+                <img
+                    src="{{ $author.avatar | relURL }}"
+                    class="author-avatar"
+                    data-author="{{ $key }}"
+                    data-name="{{ $author.name }}"
+                    data-nickname="{{ $author.nickname }}"
+                    data-bio="{{ $author.bio }}"
+                    data-github="{{ $author.github }}"
+                    data-email="{{ $author.email }}"
+                    data-website="{{ $author.website }}"
+                    alt="{{ $author.name }}"
+                    title="选择{{ $author.nickname }}"
+                />
+                {{ end }}
+            </div>
+
+            <!-- 关闭提示 -->
+            <div class="close-hint" id="closeHint">
+                <span>点击头像选择作者，点击外部区域关闭</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 作者信息显示区域 -->
+    <div class="author-info-display" id="authorInfoDisplay">
+        <h3 class="author-nickname" id="authorNickname">精选文章</h3>
+        <p class="author-bio" id="authorBio">精心挑选的优质内容</p>
+        <div class="author-social" id="authorSocial">
+            <!-- 社交链接动态生成 -->
+        </div>
+    </div>
+
+    <!-- 移动端遮罩层 -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+</div>
+
+<!-- 作者数据传递给JavaScript -->
+<script type="application/json" id="authorsDataScript">
+    {
+      {{ $authorKeys := slice }}
+      {{ range $key, $author := .Site.Data.authors }}
+        {{ $authorKeys = $authorKeys | append $key }}
+      {{ end }}
+      {{ range $index, $key := $authorKeys }}
+        {{ $author := index $.Site.Data.authors $key }}
+        "{{ $key }}": {
+          "name": {{ $author.name | jsonify }},
+          "nickname": {{ $author.nickname | jsonify }},
+          "avatar": "{{ $author.avatar | relURL }}",
+          "bio": {{ $author.bio | jsonify }},
+          "github": {{ $author.github | default "" | jsonify }},
+          "email": {{ $author.email | default "" | jsonify }},
+          "website": {{ $author.website | default "" | jsonify }},
+          "weight": {{ $author.weight | default 999 }}
+        }{{ if lt $index (sub (len $authorKeys) 1) }},{{ end }}
+      {{ end }}
+    }
+</script>
+
+<script>
+    // 初始化作者数据和默认状态
+    (function () {
+        try {
+            window.authorsData = JSON.parse(
+                document.getElementById("authorsDataScript").textContent,
+            );
+            window.currentAuthor = "featured"; // 默认显示精选文章
+        } catch (e) {
+            console.warn("Failed to parse authors data:", e);
+            window.authorsData = {};
+            window.currentAuthor = "featured";
+        }
+    })();
+</script>
