@@ -2,37 +2,68 @@
 <div class="article-list-container" id="articleListContainer">
     <!-- 文章列表 -->
     <ul class="article-list" id="articleList">
-        {{ $allPosts := where .Site.RegularPages "Section" "in"
-        .Site.Params.mainSections }} {{ range $allPosts }} {{ $author :=
-        .Params.author | default "spixed" }} {{ $featured := .Params.featured |
-        default false }}
-        <li
-            class="article-list-item {{ if $featured }}featured{{ end }}"
-            data-author="{{ $author }}"
-            data-featured="{{ $featured }}"
-            data-date="{{ .Date.Unix }}"
-            data-weight="{{ .Params.weight | default 999 }}"
-        >
+        {{ $allPosts := where .Site.RegularPages "Section" "in" .Site.Params.mainSections }}
+
+        {{/* 创建带排序权重的文章列表 */}}
+        {{ $sortedPosts := slice }}
+        {{ range $allPosts }}
+            {{ $weight := .Params.weight | default 999 }}
+            {{ $featured := .Params.featured | default false }}
+            {{ $noclick := .Params.noclick | default false }}
+            {{ $dateScore := div .Date.Unix 100000 }}
+
+            {{/* 计算排序权重：类型权重 + (1000-权重) + 日期分数 */}}
+            {{ $sortWeight := 0 }}
             {{ if $featured }}
-            <!-- 精选文章图标 -->
-            <div class="pin-icon" title="精选文章" aria-label="精选文章">
-                <i class="ri-pushpin-2-fill"></i>
-            </div>
-            {{ end }} {{ if .Params.thumbnail }}
-            <div class="article-list-img-else">
-                <div
-                    class="article-list-img"
-                    style="background-image: url('{{ .Params.thumbnail }}');"
-                    role="img"
-                    aria-label="{{ .Title }}缩略图"
-                ></div>
-                <div class="article-list-img-right">
-                    {{ partial "components/home/enhanced-eachpost.html" . }}
-                </div>
-            </div>
-            {{ else }} {{ partial "components/home/enhanced-eachpost.html" . }}
+                {{ $sortWeight = add 1000000 (sub 1000 $weight) }}
+                {{ $sortWeight = add $sortWeight $dateScore }}
+            {{ else if $noclick }}
+                {{ $sortWeight = add 2000000 (sub 1000 $weight) }}
+                {{ $sortWeight = add $sortWeight $dateScore }}
+            {{ else }}
+                {{ $sortWeight = add 3000000 (sub 1000 $weight) }}
+                {{ $sortWeight = add $sortWeight $dateScore }}
             {{ end }}
-        </li>
+
+            {{ $sortedPosts = $sortedPosts | append (dict "page" . "sortWeight" $sortWeight) }}
+        {{ end }}
+
+        {{/* 按排序权重排序 */}}
+        {{ $sortedPosts = sort $sortedPosts "sortWeight" }}
+
+        {{ range $sortedPosts }}
+            {{ $post := .page }}
+            {{ $author := $post.Params.author | default "spixed" }}
+            {{ $featured := $post.Params.featured | default false }}
+            <li
+                class="article-list-item {{ if $featured }}featured{{ end }}"
+                data-author="{{ $author }}"
+                data-featured="{{ $featured }}"
+                data-date="{{ $post.Date.Unix }}"
+                data-weight="{{ $post.Params.weight | default 999 }}"
+            >
+                {{ if $featured }}
+                <!-- 精选文章图标 -->
+                <div class="pin-icon" title="精选文章" aria-label="精选文章">
+                    <i class="ri-pushpin-2-fill"></i>
+                </div>
+                {{ end }}
+                {{ if $post.Params.thumbnail }}
+                <div class="article-list-img-else">
+                    <div
+                        class="article-list-img"
+                        style="background-image: url('{{ $post.Params.thumbnail }}');"
+                        role="img"
+                        aria-label="{{ $post.Title }}缩略图"
+                    ></div>
+                    <div class="article-list-img-right">
+                        {{ partial "components/home/enhanced-eachpost.html" $post }}
+                    </div>
+                </div>
+                {{ else }}
+                    {{ partial "components/home/enhanced-eachpost.html" $post }}
+                {{ end }}
+            </li>
         {{ end }}
     </ul>
 

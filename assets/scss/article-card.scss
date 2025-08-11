@@ -20,14 +20,20 @@ $transition-normal: 0.3s ease;
     padding: 0;
     margin: 0;
     width: 100%;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    &.filtering {
+        opacity: 0.3;
+        transform: translateY(10px);
+    }
 }
 
 // 文章卡片基础样式
 .article-list-item {
     background: #fff;
     border-radius: 12px;
-    padding: 32px;
-    margin-bottom: 24px;
+    padding: 24px 32px; /* 减少上下padding，保持左右padding */
+    margin-bottom: 20px; /* 减少底部margin */
     width: 100%;
     max-width: 100%;
     // 新拟态风格阴影 - 更明显的层次感
@@ -342,112 +348,118 @@ $transition-normal: 0.3s ease;
     margin: 10px 0;
 }
 
-// 购买相关样式
+// 购买相关样式 - 参考原版设计
 .buy-list-item {
     display: flex;
-    gap: 15px;
-    padding: 15px;
-    background: var(--bg-color);
-    border-radius: 8px;
-    margin: 10px 0;
-    min-height: 100px;
+    border: 1px solid hsla(0, 0%, 93.3%, 0.73);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    margin-bottom: 20px;
+    margin-top: -5px;
+    border-radius: 4px;
+    background: var(--bg-secondary);
 
     .buy-left-img-noborder {
+        width: 60px;
         flex-shrink: 0;
 
         img {
-            width: 80px;
-            height: 80px;
+            opacity: 0.8;
+            height: 100%;
+            width: 100%;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 4px 0 0 4px;
         }
     }
 
     .buy-right-info {
-        flex: 1;
+        width: 80%;
+        margin-left: 3.5%;
         display: flex;
-        justify-content: space-between;
-        min-width: 0;
-        gap: 10px;
-        /* height: 100%; */
+        line-height: 1;
+        padding: 12px 0 0;
 
         > div:first-child {
-            flex: 1;
-            margin-bottom: 16px;
-        }
-
-        > div:last-child {
-            align-self: flex-start;
+            flex-basis: 100%;
         }
 
         h3 {
-            margin: 0 0 12px;
-            font-size: 1.2rem;
-            color: #333;
-            line-height: 1.3;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            color: #666;
+            margin: 0;
         }
 
         p {
-            margin: 0 0 16px;
-            color: #666;
-            font-size: 0.95rem;
-            line-height: 1.5;
+            margin: 0;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+            color: #999;
         }
 
-        a {
+        > div:nth-child(2) a {
             text-decoration: none;
-            font-weight: 500;
+            font-style: normal;
+            padding: 8px 12px;
+            font-size: 15px;
+            color: #feae48 !important;
+            border-radius: 4px;
+            background: #ffeedb;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+            padding: 8px 12px 8px 12px;
+            white-space: nowrap;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+
+            &:hover {
+                text-decoration: none;
+                opacity: 1;
+
+                span {
+                    margin-left: -3px;
+                    margin-right: -7px;
+                    opacity: 1;
+                }
+            }
 
             span {
-                display: inline-flex;
-                align-items: center;
+                opacity: 0;
+                margin-left: -20px;
+                margin-right: -3px;
+                transition: 0.2s ease-in-out;
+
+                i {
+                    font-size: 20px;
+                    display: inline-block;
+                    vertical-align: text-top;
+                    transform: translateY(-1px);
+                }
             }
         }
     }
 
-    // 移动端优化
-    @media (max-width: 768px) {
-        gap: 18px;
-        padding: 18px;
-        margin: 20px 0;
-        border-radius: 16px;
-        min-height: auto;
-
-        .buy-left-img-noborder {
-            flex-shrink: 0;
-
-            img {
-                width: 90px;
-                height: 90px;
-                border-radius: 12px;
-            }
-        }
-
+    // 移动端优化 - 参考原版设计
+    @media (max-width: 767px) {
         .buy-right-info {
-            > div:first-child {
-                margin-bottom: 14px;
-            }
+            margin-left: 5.5%;
 
             h3 {
-                font-size: 1.1rem;
-                margin: 0 0 10px;
+                max-width: 170px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
 
             p {
-                font-size: 0.9rem;
-                margin: 0 0 14px;
-                line-height: 1.6;
+                max-width: 140px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
 
-            a {
-                padding: 12px 20px;
-                font-size: 0.9rem;
-                border-radius: 8px;
-                min-width: 120px;
-                justify-content: center;
+            > div:nth-child(2) {
+                display: none; // 移动端隐藏按钮
             }
         }
     }

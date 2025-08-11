@@ -54,18 +54,63 @@ class UnifiedAuthorSelector {
   }
 
   setupEventListeners() {
-    // 中心头像点击事件
+    // 中心头像点击事件 - 支持触摸设备
     if (this.elements.centerTrigger) {
-      this.elements.centerTrigger.addEventListener("click", (e) => {
+      let touchStarted = false;
+
+      // 触摸开始事件
+      this.elements.centerTrigger.addEventListener("touchstart", (e) => {
+        touchStarted = true;
         e.stopPropagation();
-        this.toggleSelector();
+      }, { passive: true });
+
+      // 触摸结束事件（移动端主要事件）
+      this.elements.centerTrigger.addEventListener("touchend", (e) => {
+        if (touchStarted) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.toggleSelector();
+          touchStarted = false;
+        }
+      });
+
+      // 点击事件（桌面端）
+      this.elements.centerTrigger.addEventListener("click", (e) => {
+        if (!touchStarted) { // 避免触摸设备上的重复触发
+          e.preventDefault();
+          e.stopPropagation();
+          this.toggleSelector();
+        }
       });
     }
 
-    // 作者头像点击事件
+    // 作者头像点击事件 - 支持触摸设备
     if (this.elements.authorPolygon) {
-      this.elements.authorPolygon.addEventListener("click", (e) => {
+      let avatarTouchStarted = false;
+
+      // 触摸开始事件
+      this.elements.authorPolygon.addEventListener("touchstart", (e) => {
         if (e.target.classList.contains("author-avatar")) {
+          avatarTouchStarted = true;
+          e.stopPropagation();
+        }
+      }, { passive: true });
+
+      // 触摸结束事件（移动端主要事件）
+      this.elements.authorPolygon.addEventListener("touchend", (e) => {
+        if (e.target.classList.contains("author-avatar") && avatarTouchStarted) {
+          e.preventDefault();
+          e.stopPropagation();
+          const authorKey = e.target.dataset.author;
+          this.selectAuthor(authorKey);
+          avatarTouchStarted = false;
+        }
+      });
+
+      // 点击事件（桌面端）
+      this.elements.authorPolygon.addEventListener("click", (e) => {
+        if (e.target.classList.contains("author-avatar") && !avatarTouchStarted) {
+          e.preventDefault();
           e.stopPropagation();
           const authorKey = e.target.dataset.author;
           this.selectAuthor(authorKey);
@@ -82,7 +127,15 @@ class UnifiedAuthorSelector {
 
     // 移动端遮罩层点击
     if (this.elements.mobileOverlay) {
-      this.elements.mobileOverlay.addEventListener("click", () => {
+      this.elements.mobileOverlay.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.hideSelector();
+      });
+
+      this.elements.mobileOverlay.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         this.hideSelector();
       });
     }
@@ -313,32 +366,57 @@ class UnifiedAuthorSelector {
   filterArticles(authorKey) {
     const articleItems = document.querySelectorAll(".article-list-item");
     const noArticles = document.getElementById("noArticles");
+    const articleList = document.querySelector(".article-list");
     let visibleCount = 0;
 
-    articleItems.forEach((item) => {
-      const itemAuthor = item.dataset.author;
-      const itemFeatured = item.dataset.featured === "true";
-
-      let shouldShow = false;
-
-      if (authorKey === "featured") {
-        shouldShow = itemFeatured;
-      } else {
-        shouldShow = itemAuthor === authorKey;
-      }
-
-      if (shouldShow) {
-        item.classList.remove("hidden");
-        visibleCount++;
-      } else {
-        item.classList.add("hidden");
-      }
-    });
-
-    // 显示/隐藏无文章提示
-    if (noArticles) {
-      noArticles.style.display = visibleCount === 0 ? "block" : "none";
+    // 添加淡出动画
+    if (articleList) {
+      articleList.style.opacity = "0.3";
+      articleList.style.transform = "translateY(10px)";
+      articleList.style.transition = "opacity 0.3s ease, transform 0.3s ease";
     }
+
+    // 延迟执行过滤，让淡出动画完成
+    setTimeout(() => {
+      articleItems.forEach((item) => {
+        const itemAuthor = item.dataset.author;
+        const itemFeatured = item.dataset.featured === "true";
+
+        let shouldShow = false;
+
+        if (authorKey === "featured") {
+          shouldShow = itemFeatured;
+        } else {
+          shouldShow = itemAuthor === authorKey;
+        }
+
+        if (shouldShow) {
+          item.classList.remove("hidden");
+          item.style.display = "";
+          visibleCount++;
+
+          // 重置位置，防止位移
+          item.style.transform = "translateY(0)";
+          item.style.opacity = "1";
+        } else {
+          item.classList.add("hidden");
+          item.style.display = "none";
+        }
+      });
+
+      // 显示/隐藏无文章提示
+      if (noArticles) {
+        noArticles.style.display = visibleCount === 0 ? "block" : "none";
+      }
+
+      // 添加淡入动画
+      if (articleList) {
+        setTimeout(() => {
+          articleList.style.opacity = "1";
+          articleList.style.transform = "translateY(0)";
+        }, 50);
+      }
+    }, 150);
   }
 
   // 工具函数：防抖

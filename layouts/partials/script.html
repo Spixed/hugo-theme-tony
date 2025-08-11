@@ -3,10 +3,12 @@
 {{- $header := resources.Get "js/header.js" | resources.ExecuteAsTemplate (printf "%s/js/header-rendered.js" .Lang) . -}}
 {{- $homeTags := resources.Get "js/home-tags.js" | resources.ExecuteAsTemplate (printf "%s/js/home-tags-rendered.js" .Lang) . -}}
 {{- $authorSelector := resources.Get "js/author-selector.js" | resources.ExecuteAsTemplate (printf "%s/js/author-selector-rendered.js" .Lang) . -}}
+{{- $mobileMenu := resources.Get "js/mobile-menu.js" | resources.ExecuteAsTemplate (printf "%s/js/mobile-menu-rendered.js" .Lang) . -}}
 
 {{- .Scratch.Set "script" (slice $header) -}}
 {{- .Scratch.Add "script" (slice $homeTags) -}}
 {{- .Scratch.Add "script" (slice $authorSelector) -}}
+{{- .Scratch.Add "script" (slice $mobileMenu) -}}
 
 {{- $path := (strings.TrimPrefix "/" (printf `%s/js/tony.js` .Site.LanguagePrefix)) -}}
 {{- $script := .Scratch.Get "script" | resources.Concat $path | resources.Minify | resources.Fingerprint -}}

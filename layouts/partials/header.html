@@ -5,5 +5,49 @@
             <img src="{{ .Site.Params.siteLogo | relURL}}">
         </a>
     </div>
+
+    <!-- 移动端菜单按钮 -->
+    <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="ri-menu-line"></i>
+    </div>
+
     {{ partial "menu.html" . }}
+
+    <!-- 移动端弹出菜单 -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <div class="mobile-menu-content" id="mobileMenuContent">
+            <div class="mobile-menu-header">
+                <h3>菜单</h3>
+                <button class="mobile-menu-close" id="mobileMenuClose">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            <div class="mobile-menu-body">
+                <!-- 导航链接 -->
+                <div class="mobile-menu-section">
+                    <h4>导航</h4>
+                    <ul class="mobile-menu-list">
+                        {{ range .Site.Menus.main }}
+                        <li>
+                            <a href="{{ .URL | relURL}}">
+                                <i class="ri-arrow-right-s-line"></i>
+                                {{ .Name }}
+                            </a>
+                        </li>
+                        {{ end }}
+                    </ul>
+                </div>
+
+                <!-- 文章详情页目录 -->
+                {{ if and (eq .Type "post") (.TableOfContents) }}
+                <div class="mobile-menu-section">
+                    <h4>目录</h4>
+                    <div class="mobile-toc">
+                        {{ .TableOfContents }}
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
 </header>

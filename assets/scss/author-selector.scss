@@ -75,6 +75,7 @@ $transition-normal: 0.3s ease;
         display: flex;
         flex-direction: column;
         align-items: center;
+        z-index: auto; // 在移动端重置z-index，避免影响菜单
     }
 }
 
@@ -243,7 +244,7 @@ $transition-normal: 0.3s ease;
         max-width: 85vw;
         max-height: 75vh;
         overflow-y: auto;
-        z-index: 1001;
+        z-index: 1002; // 确保在遮罩层之上，但低于移动端菜单
         animation: modalSlideIn 0.3s ease-out;
     }
 }
@@ -385,16 +386,22 @@ $transition-normal: 0.3s ease;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px);
-    z-index: 1000;
+    z-index: 1001; // 提高z-index，但低于移动端菜单
     opacity: 0;
-    transition: opacity $transition-normal;
+    visibility: hidden;
+    transition: opacity $transition-normal, visibility $transition-normal;
+    pointer-events: none; // 默认不拦截点击事件
 
     &.active {
         opacity: 1;
+        visibility: visible;
+        pointer-events: auto; // 激活时才拦截点击事件
     }
 
     @media (max-width: 768px) {
         display: block;
+        // 确保在移动端遮罩层能够正确接收触摸事件
+        touch-action: manipulation;
     }
 }
 
@@ -586,11 +593,19 @@ $transition-normal: 0.3s ease;
 // 移动端触摸优化
 @media (max-width: 768px) {
     .center-trigger {
-        padding: 8px;
+        padding: 12px; // 增加触摸区域
         border-radius: 50%;
+        min-width: 80px; // 确保足够的触摸目标大小
+        min-height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        touch-action: manipulation; // 优化触摸响应
+        -webkit-tap-highlight-color: transparent; // 移除默认的点击高亮
 
         &:active {
             background: rgba(255, 215, 0, 0.1);
+            transform: scale(0.95);
         }
     }
 
